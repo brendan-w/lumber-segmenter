@@ -1,0 +1,274 @@
+/* Brendan Whitfield */
+
+/********************************* General Things ****************************************/
+
+h1
+{
+    font-size: 24pt;
+    text-align: center;
+}
+
+h2
+{
+    font-size: 14pt;
+    text-align: center;
+}
+
+.b
+{
+    font-weight:bold;
+    line-height: 1.1em;
+}
+
+.linkDisable
+{
+    opacity:0;
+    pointer-events: none;
+    cursor: default;
+    -webkit-user-select: none; /* Chrome/Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+ */
+}
+
+body
+{
+	/* default behavior */
+	color:rgb(0,0,0);
+	font-family: "Arial", sans-serif;
+	font-size:12pt;
+}
+
+section
+{
+    margin-top:24px;
+    text-align: center;
+}
+
+section > div
+{
+    display:inline-block;
+    vertical-align:top;
+    overflow:hidden;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:0px;
+}
+
+section > div:first-of-type
+{
+    margin-left:0px;
+}
+
+section > div:last-of-type
+{
+    margin-right:0px;
+}
+
+section.dark
+{
+    border:1px solid rgb(200,200,200);
+    background-color: rgb(245,245,245);
+    border-left:none;
+    border-right:none;
+}
+
+/* ====================================== header =======================================*/
+
+#header
+{
+    font-size: 10pt;
+}
+
+#settings
+{
+    display:inline-block;
+    text-align: left;
+    width:300px;
+    padding:10px;
+    line-height: 48px;
+}
+
+#instructions
+{
+    display:inline-block;
+    text-align: left;
+    width:380px;
+    padding:10px;
+}
+
+#run
+{
+    height:26px;
+    width:100%;
+}
+
+.checkbox
+{
+    padding:0px;
+    margin: 0px 10px 0px 0px;
+}
+
+
+/* ====================================== lists =======================================*/
+
+#main > div > ul
+{
+    border:1px solid rgb(200,200,200);
+    display:block;
+    padding:10px;
+    margin-top:10px;
+    overflow: hidden;
+}
+
+#main > div > ul > li
+{
+    border-top:1px solid rgb(200,200,200);
+    margin-top:5px;
+    padding-top:5px;
+}
+#main > div > ul > li:first-of-type
+{
+    border-top:none;
+    margin-top:0px;
+    padding-top:0px;
+}
+
+input.length, input.quantity
+{
+    font-family: "Arial", sans-serif;
+    font-size:10pt;
+    width:4em;
+}
+
+.colorCode
+{
+	background-color: hsl(0, 100%, 50%);
+    display:inline-block;
+    position:relative;
+    width:50px;
+    height:17px;
+    bottom:-3px;
+}
+
+.spacer
+{
+    display:inline-block;
+    margin-left:20px;
+}
+
+a.button
+{
+    color:black;
+    text-decoration: none;
+    border:1px solid rgb(200,200,200);
+    background-color: rgb(235,235,235);
+    padding:2px;
+}
+
+a.button:hover
+{
+    color:blue;
+    border-color:blue;
+}
+
+a.add
+{
+    position: relative;
+    top:7px;
+}
+
+li.add
+{
+    text-align: center;
+    height:22px;
+}
+
+/* ====================================== error =======================================*/
+
+#error
+{
+    border:1px solid rgb(200,72,72);
+    border-left:none;
+    border-right:none;
+    background-color: rgb(245,171,171);
+}
+
+#error h2
+{
+    display:inline-block;
+    height:40px;
+    line-height: 40px;
+    width:766px;
+}
+
+/* ====================================== done ======================================= */
+
+#done
+{
+    border:1px solid rgb(72,200,72);
+    border-left:none;
+    border-right:none;
+    background-color: rgb(171,245,171);
+}
+
+#done h2
+{
+    display:inline-block;
+    height:40px;
+    line-height: 40px;
+    width:766px;
+}
+
+/* ====================================== results ======================================= */
+
+section.result
+{
+    margin-top:12px;
+}
+
+section.result h1
+{
+    display:inline-block;
+    height:50px;
+    line-height: 50px;
+    width:100px;
+}
+
+section.result canvas
+{
+    display:inline-block;
+}
+
+/* ====================================== printer ======================================= */
+
+@media print
+{
+    section
+    {
+        border:none !important;
+        background-color: transparent !important;
+    }
+
+    section:not(.result)
+    {
+        display:none !important;
+    }
+
+    section.result
+    {
+        width:766px; /* ensures that there is enough room to put everything on a single line */
+    }
+
+    section.result h1
+    {
+        font-size: 20pt;
+        display:inline;
+        width:auto;
+        padding-right:10px;
+    }
+
+    section.result canvas
+    {
+        display:inline;
+    }
+}

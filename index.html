@@ -1,0 +1,128 @@
+<!doctype html>
+
+<!-- Written and Designed by Brendan Whitfield -->
+<!-- Because I got sick of doing it by hand... -->
+
+<html>
+	<head>
+		<!-- META -->
+		<meta charset='utf-8'/>
+		<meta name="author" content="Brendan Whitfield">
+		<meta name="description" content="Lumber Segmentation Calculator - A tool for efficiently cutting wood">
+		<meta name="keywords" content="lumber, calculator, wood, cut, calculate, layout">
+		
+		<title>Lumber Segmenter</title>
+		<link rel='shortcut icon' type='image/png' href='favicon.png'>
+
+		<!-- CSS -->
+		<link rel='stylesheet' type='text/css' href='css/reset.css'>
+		<link rel='stylesheet' type='text/css' href='css/style.css'>
+
+		<!-- JS -->
+		<script type="text/javascript" src='js/jquery-1.9.1.min.js'></script>
+		<script type="text/javascript" src='js/util.js'></script>
+		<script type="text/javascript" src='js/solve.js'></script>
+		<script type="text/javascript" src='js/fast_solve_1.js'></script>
+		<script type="text/javascript" src='js/fast_solve_2.js'></script>
+		<script type="text/javascript" src='js/segmenter.js'></script>
+		<script type="text/javascript" src='js/main.js'></script> <!-- $(window).load() -->
+
+		<!--[if lt IE 9]>
+			<script type="text/javascript" src="js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+	<body onunload=''>
+		<section>
+			<h1>Lumber Segmenter</h1>
+		</section>
+		<section id="header" class="dark">
+				<div id="settings">
+					<span>Saw kerf:</span>
+					<select name="kerf" id="kerf">
+						<option>0"</option>
+						<option>1/16"</option>
+						<option selected="selected">1/8"</option>
+						<option>1/4"</option>
+						<option>1/2"</option>
+					</select>
+					<span class="spacer">Mode:</span>
+					<select name="mode" id="mode">
+						<option selected="selected">Auto</option>
+						<option>Optimal (Slow)</option>
+						<option>Sub-Optimal 1</option>
+						<option>Sub-Optimal 2</option>
+					</select>
+					<br/>
+					<button id="run" type="button">Run</button>
+				</div>
+				<div id="instructions">
+					<p>
+						This tool tries to calculate cuts of lumber that minimize loss. Enter your lengths and quantities below, and a cut pattern will be generated.
+					</p>
+					<br/>
+					<p>
+					 	<span class="b">If a source quantity is left blank, it will be treated as an unlimited resource.</span> Fractional length measurements such as "34 1/2" are welcome.
+					</p>
+				</div>
+		</section>
+		<section id="main">
+			<div>
+				<h2>What you HAVE</h2>
+				<ul id="have">
+					<li>
+						<span class="">Length:</span>
+						<input class="length" type="input" name="length"/>
+						<span class="spacer">Quantity:</span>
+						<input class="quantity" type="number" name="quantity"/>
+						<a href="" class="button remove spacer linkDisable">X</a>
+					</li>
+					<li class="add">
+						<a href="" class="button add">Add</a>
+					</li>
+				</ul>
+			</div>
+			<div>
+				<h2>What you WANT</h2>
+				<ul id="need">
+					<li>
+						<span class="colorCode"></span>
+						<span class="spacer">Length:</span>
+						<input class="length" type="input" name="length"/>
+						<span class="spacer">Quantity:</span>
+						<input class="quantity" type="number" name="quantity"/>
+						<a href="" class="button remove spacer linkDisable">X</a>
+					</li>
+					<li class="add">
+						<a href="" class="button add">Add</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section id="error">
+				<h2>Error</h2>
+		</section>
+		<section id="done">
+				<h2>Complete</h2>
+		</section>
+		<section class="result dark">
+				<h1></h1>
+				<canvas height='20' width='666'></canvas>
+		</section>
+
+		<script type="text/javascript">
+		
+		  var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-47261656-1']);
+		  _gaq.push(['_trackPageview']);
+		
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		
+		</script>
+		
+	</body>
+ </html>
