@@ -30,6 +30,11 @@ h2
     -ms-user-select: none; /* IE10+ */
 }
 
+.hide
+{
+    display:none;
+}
+
 body
 {
 	/* default behavior */

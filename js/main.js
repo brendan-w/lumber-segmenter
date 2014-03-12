@@ -163,7 +163,7 @@ function run()
 
 function displayResults(results, kerf)
 {
-	$("#done").show();
+	document.querySelector("#done").className = "";
 
 	//find the largest source piece and the display elements
 	var largestSource = 0;
@@ -240,14 +240,14 @@ function displayError(data)
 	resetResults();
 	var $e = $("#error");
 	$e.find("h2").text(data);
-	$e.show();
+	$e[0].className = "";
 }
 
 
 function resetResults()
 {
-	$("#error").hide();
-	$("#done").hide();
+	document.querySelector("#error").className = "hide";
+	document.querySelector("#done").className = "hide";
 
 	//reduce to one result section
 	var $results = $("section.result");
