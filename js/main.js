@@ -39,6 +39,12 @@ function listen()
 	$have.find("a.remove").click(remove);
 	$need.find("a.remove").click(remove);
 	$run.click(run);
+	$(document).keypress(function(e){
+		if(e.keyCode === 13)
+		{
+			run();
+		}
+	});
 }
 
 function refresh()
