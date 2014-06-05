@@ -35,6 +35,9 @@ h2
     display:none;
 }
 
+.left {float:left;}
+.right {float:right;}
+
 body
 {
 	/* default behavior */
