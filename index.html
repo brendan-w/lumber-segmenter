@@ -41,27 +41,69 @@
 			<p>
 			 	If a source quantity is left blank, it will be treated as an unlimited resource. Fractional length measurements such as "34 1/2" are welcome.
 			</p>
-			<h2>Source Material</h2>
+
+			<h2>Settings</h2>
+			<table>
+				<tbody>
+					<tr>
+						<th>Saw Kerf</th>
+						<td><input type="input"/></td> <!-- kerf -->
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<th>Mode</th>
+						<td>
+							<select name="mode" id="mode">
+								<option selected="selected">Auto</option>
+								<option>Optimal (Slow)</option>
+								<option>Sub-Optimal 1</option>
+								<option>Sub-Optimal 2</option>
+							</select>
+						</td>
+					</tr>
+				</tbody>
+			</table>			
+
+			<h2>Source Material<button id="add-source">+</button></h2>
 			<table id="sources">
-				<tr>
-					<th>Length</th>
-					<th>Quantity</th>
-					<th></th>
-				</tr>
-				<tr>
-					<td><input type="input"/></td> <!-- length -->
-					<td><input type="number"/></td> <!-- quantity -->
-					<td><button>X</button></td>
-				</tr>
+				<thead>
+					<tr>
+						<th>Length</th>
+						<th>Quantity</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="input"/></td> <!-- length -->
+						<td><input type="number" min="0"/></td> <!-- quantity -->
+						<td><button class="delete">X</button></td>
+					</tr>
+				</tbody>
 			</table>
-			<table id="segments">
-				<tr>
-					<td></td>
-					<td></td>
-				</tr>
+
+			<h2>Cuts<button id="add-desire">+</button></h2>
+			<table id="desires">
+				<thead>
+					<tr>
+						<th>Length</th>
+						<th>Quantity</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><input type="input"/></td> <!-- length -->
+						<td><input type="number" min="0"/></td> <!-- quantity -->
+						<td><button class="delete">X</button></td>
+					</tr>
+				</tbody>
 			</table>
 		</aside>
-
+		<section id="layout">
+			
+		</section>
 
 
 
