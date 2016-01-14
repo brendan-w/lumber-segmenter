@@ -1,7 +1,9 @@
 <!doctype html>
 
-<!-- Written and Designed by Brendan Whitfield -->
-<!-- Because I got sick of doing it by hand... -->
+<!--
+	Written and Designed by Brendan Whitfield
+	because I got sick of doing it by hand...
+-->
 
 <html>
 	<head>
@@ -49,8 +51,6 @@
 						<th>Saw Kerf</th>
 						<td><input type="input"/></td> <!-- kerf -->
 					</tr>
-				</tbody>
-				<tbody>
 					<tr>
 						<th>Mode</th>
 						<td>
@@ -69,9 +69,7 @@
 			<table id="sources">
 				<thead>
 					<tr>
-						<th>Length</th>
-						<th>Quantity</th>
-						<th></th>
+						<th>Length</th><th>Quantity</th><th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -87,9 +85,7 @@
 			<table id="desires">
 				<thead>
 					<tr>
-						<th>Length</th>
-						<th>Quantity</th>
-						<th></th>
+						<th>Length</th><th>Quantity</th><th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -108,78 +104,7 @@
 		</section>
 
 
-
 		<!--
-		<section>
-			<h1>Lumber Segmenter</h1>
-		</section>
-		<section id="header" class="dark">
-				<div id="settings">
-					<div class="left">
-						<span>Saw kerf:</span>
-						<select name="kerf" id="kerf">
-							<option>0"</option>
-							<option>1/16"</option>
-							<option selected="selected">1/8"</option>
-							<option>1/4"</option>
-							<option>1/2"</option>
-						</select>
-					</div>
-					<div class="right">
-						<span>Mode:</span>
-						<select name="mode" id="mode">
-							<option selected="selected">Auto</option>
-							<option>Optimal (Slow)</option>
-							<option>Sub-Optimal 1</option>
-							<option>Sub-Optimal 2</option>
-						</select>
-					</div>
-					<br/>
-					<button id="run" type="button">Run</button>
-				</div>
-				<div id="instructions">
-					<p>
-						Calculates cuts of lumber that minimize loss. Enter your lengths and quantities below, and a cut pattern will be generated.
-					</p>
-					<br/>
-					<p>
-					 	<span class="b">If a source quantity is left blank, it will be treated as an unlimited resource.</span> Fractional length measurements such as "34 1/2" are welcome.
-					</p>
-				</div>
-		</section>
-		<section id="main">
-			<div>
-				<h2>What you HAVE</h2>
-				<ul id="have">
-					<li>
-						<span class="">Length:</span>
-						<input class="length" type="input" name="length"/>
-						<span class="spacer">Quantity:</span>
-						<input class="quantity" type="number" name="quantity"/>
-						<a href="" class="button remove spacer linkDisable">X</a>
-					</li>
-					<li class="add">
-						<a href="" class="button add">Add</a>
-					</li>
-				</ul>
-			</div>
-			<div>
-				<h2>What you WANT</h2>
-				<ul id="need">
-					<li>
-						<span class="colorCode"></span>
-						<span class="spacer">Length:</span>
-						<input class="length" type="input" name="length"/>
-						<span class="spacer">Quantity:</span>
-						<input class="quantity" type="number" name="quantity"/>
-						<a href="" class="button remove spacer linkDisable">X</a>
-					</li>
-					<li class="add">
-						<a href="" class="button add">Add</a>
-					</li>
-				</ul>
-			</div>
-		</section>
 		<section id="error" class="hide">
 				<h2>Error</h2>
 		</section>
