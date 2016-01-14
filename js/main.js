@@ -22,7 +22,10 @@ $(function() {
 
 	$(".delete").on("click", function(e) {
 		$(this).closest("tr").remove();
+		re_color(); //update the color codes
 	});
+
+	re_color();
 });
 
 
@@ -31,4 +34,15 @@ function add_item($table)
 {
 	var $last = $table.find("tbody").children().last();
 	$table.append($last.clone(true));
+	re_color(); //update the color codes
+}
+
+//recolors the list of desired cuts
+function re_color()
+{
+	$desires.find("tbody tr").each(function(i, row) {
+		var color = color_for_index(i);
+		$(row).find(".length").css(color);
+		$(row).find(".quantity").css(color);
+	});
 }

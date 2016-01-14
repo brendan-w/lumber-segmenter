@@ -5,7 +5,7 @@
  */
 
 //returns a moderately different color for as long as it can
-function colorForIndex(n)
+function color_for_index(n)
 {
 	var val = n * 282;
 	val = mod(val, 360);
