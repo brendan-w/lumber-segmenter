@@ -35,64 +35,65 @@
 	</head>
 	<body onunload=''>
 		<aside>
-
 			<button id="run">Run</button>
 
-			<h2>Settings</h2>
+			<section>
+				<h2>Settings</h2>
 
-			<table id="settings">
-				<tbody>
-					<tr>
-						<td>
-							<select id="mode">
-								<option value="auto" selected="selected">Auto</option>
-								<option value="solve">Optimal (Slow)</option>
-								<option value="fast_1">Sub-Optimal 1</option>
-								<option value="fast_2">Sub-Optimal 2</option>
-							</select>
-						</td>
-						<th>Mode</th>
-					</tr>
-					<tr>
-						<td><input id="kerf" type="input" value="3/16"/></td> <!-- kerf -->
-						<th>Saw Kerf</th>
-					</tr>
-				</tbody>
-			</table>			
+				<table id="settings">
+					<tbody>
+						<tr>
+							<td>
+								<select id="mode">
+									<option value="auto" selected="selected">Auto</option>
+									<option value="solve">Optimal (Slow)</option>
+									<option value="fast_1">Sub-Optimal 1</option>
+									<option value="fast_2">Sub-Optimal 2</option>
+								</select>
+							</td>
+							<th>Mode</th>
+						</tr>
+						<tr>
+							<td><input id="kerf" type="input" value="3/16"/></td> <!-- kerf -->
+							<th>Saw&nbsp;Kerf</th>
+						</tr>
+					</tbody>
+				</table>			
 
-			<h2>Source Material<button id="add-source">+</button></h2>
+				<h2>Source Material<button id="add-source">+</button></h2>
 
-			<table id="sources">
-				<thead>
-					<tr>
-						<th>Length</th><th>Quantity</th><th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><input class="length" type="input" required/></td>
-						<td><input class="quantity" type="number" min="0" placeholder="unlimited"/></td>
-						<td><button class="delete">X</button></td>
-					</tr>
-				</tbody>
-			</table>
+				<table id="sources">
+					<thead>
+						<tr>
+							<th>Length</th><th>Quantity</th><th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input class="length" type="input" required/></td>
+							<td><input class="quantity" type="number" min="0" placeholder="unlimited"/></td>
+							<td><button class="delete">X</button></td>
+						</tr>
+					</tbody>
+				</table>
 
-			<h2>Cuts<button id="add-desire">+</button></h2>
+				<h2>Cuts<button id="add-desire">+</button></h2>
 
-			<table id="desires">
-				<thead>
-					<tr>
-						<th>Length</th><th>Quantity</th><th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td><input class="length" type="input" required/></td>
-						<td><input class="quantity" type="number" min="0" value="1" required/></td>
-						<td><button class="delete">X</button></td>
-					</tr>
-				</tbody>
-			</table>
+				<table id="desires">
+					<thead>
+						<tr>
+							<th>Length</th><th>Quantity</th><th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input class="length" type="input" required/></td>
+							<td><input class="quantity" type="number" min="0" value="1" required/></td>
+							<td><button class="delete">X</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</section>
 		</aside>
 
 		<div id="main">
