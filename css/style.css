@@ -31,6 +31,26 @@ h1
 	text-transform: uppercase;
 }
 
+button,
+input,
+select
+{
+	border:none;
+	background: #111;
+	color:white;
+	width:100%;
+	height:25px;
+	font-weight: inherit;
+	font-size: inherit;
+	font-family: inherit;
+}
+
+button
+{
+	font-weight: bold;
+	cursor: pointer;
+}
+
 
 
 /*
@@ -39,11 +59,10 @@ h1
 
 button#run
 {
-	border:none;
-	cursor: pointer;
-	width:300px;
+	width:100%;
 	height:50px;
 	background-color: #2B87FF;
+	color:black;
 }
 
 button#run:hover
@@ -86,13 +105,6 @@ aside h2:first-of-type
 	margin-top: 0px;
 }
 
-aside h2 button
-{
-	float:right;
-	width:40px;
-	height:15px;
-	line-height:10px;
-}
 
 aside table td,
 aside table th
@@ -100,27 +112,59 @@ aside table th
 	padding:3px 1px;
 }
 
-aside table tbody tr:first-of-type button
-{
-	display: none; /* hide the first delete button */
-}
-
-
 aside table tr th:first-of-type,
 aside table tr td:first-of-type { padding-left:0px; }
 aside table tr th:last-of-type,
 aside table tr td:last-of-type { padding-right:0px; }
 
-aside table input,
-aside table select
-{
-	width:100%;
-}
-
-
 aside table#settings th
 {
 	padding-left:10px;
+}
+
+aside table td > *
+{
+	display:block;
+}
+
+aside table input,
+aside table select
+{
+	padding:3px;
+}
+
+aside button.add
+{
+	float:right;
+	width:50px;
+	height:100%;
+}
+
+aside button.add:hover
+{
+	color:#2F2;
+}
+
+aside table .color
+{
+	width:25px;
+	height:25px;
+}
+
+aside table button.delete
+{
+	width:25px;
+	height:25px;
+}
+
+aside table button.delete:hover
+{
+	color:#F30;
+}
+
+aside table tbody tr:first-of-type button.delete
+{
+	display: none; /* hide the first delete button */
 }
 
 

@@ -60,7 +60,7 @@
 					</tbody>
 				</table>			
 
-				<h2>Source Material<button id="add-source">+</button></h2>
+				<h2>Source Material<button id="add-source" class="add">+</button></h2>
 
 				<table id="sources">
 					<thead>
@@ -77,16 +77,17 @@
 					</tbody>
 				</table>
 
-				<h2>Cuts<button id="add-desire">+</button></h2>
+				<h2>Cuts<button id="add-desire" class="add">+</button></h2>
 
 				<table id="desires">
 					<thead>
 						<tr>
-							<th>Length</th><th>Quantity</th><th></th>
+							<th></th><th>Length</th><th>Quantity</th><th></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
+							<td><div class="color"></div></td>
 							<td><input class="length" type="input" required/></td>
 							<td><input class="quantity" type="number" min="0" value="1" required/></td>
 							<td><button class="delete">X</button></td>

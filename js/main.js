@@ -78,7 +78,7 @@ function run(e)
 	$desires.find("tbody tr").each(function(i, row) {
 		var l = parse_compound_float($(row).find(".length").val());
 		var q = parseInt($(row).find(".quantity").val());
-		var c = $(row).find(".length").css("background-color");
+		var c = $(row).find(".color").css("background-color");
 
 		if(isNaN(l))
 		{
@@ -228,9 +228,7 @@ function add_item($table)
 function re_color()
 {
 	$desires.find("tbody tr").each(function(i, row) {
-		var color = color_for_index(i);
-		$(row).find(".length").css(color);
-		$(row).find(".quantity").css(color);
+		$(row).find(".color").css(color_for_index(i));
 	});
 }
 
