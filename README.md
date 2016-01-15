@@ -19,7 +19,7 @@ Uses a full recursive solver to try every permutation of cuts. Returns solution 
 Suboptimal 1
 ------------
 
-Considers cuts on one board at a time. The desired output lengths are sorted from largest to smallest, and the computer attempts to cut the largest segments from the board first. When there is no more room for a certain cut size, the computer will move on to the next smallest cut. This is repeated until all of the desired cuts have been made.
+Considers cuts on one board at a time. The desired output lengths are sorted from largest to smallest, and the computer attempts to make the largest cut first. When there is no more room for a certain cut size, the computer will move on to the next smallest cut. This is repeated until all of the desired cuts have been made.
 
 
 Suboptimal 2
