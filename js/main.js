@@ -210,7 +210,7 @@ function add_result()
 function log_error(str)
 {
 	console.log(str);
-	$errors.text($errors.text() + "\n" + str);
+	$errors.html($errors.text() + "<br>" + str);
 	$errors.show();
 }
 

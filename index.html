@@ -44,18 +44,18 @@
 			 	If a source quantity is left blank, it will be treated as an unlimited resource. Fractional length measurements such as "34 1/2" are welcome. Units are irrelevant, as long as they're consistent.
 			</p>
 
-			<button id="run">Run</button>
 
 			<!-- <h2>Settings</h2> -->
 
 			<table id="settings">
 				<tbody>
 					<tr>
+						<th></th>
+						<th>Mode</th>
 						<th>Saw Kerf</th>
-						<td><input id="kerf" type="input" value="3/16"/></td> <!-- kerf -->
 					</tr>
 					<tr>
-						<th>Mode</th>
+						<td><button id="run">Run</button></td>
 						<td>
 							<select id="mode">
 								<option value="auto" selected="selected">Auto</option>
@@ -64,6 +64,7 @@
 								<option value="fast_2">Sub-Optimal 2</option>
 							</select>
 						</td>
+						<td><input id="kerf" type="input" value="3/16"/></td> <!-- kerf -->
 					</tr>
 				</tbody>
 			</table>			
@@ -78,8 +79,8 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input class="length" type="input"/></td>
-						<td><input class="quantity" type="number" min="0"/></td>
+						<td><input class="length" type="input" required/></td>
+						<td><input class="quantity" type="number" min="0" placeholder="unlimited"/></td>
 						<td><button class="delete">X</button></td>
 					</tr>
 				</tbody>
@@ -95,8 +96,8 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td><input class="length" type="input"/></td>
-						<td><input class="quantity" type="number" min="0"/></td>
+						<td><input class="length" type="input" required/></td>
+						<td><input class="quantity" type="number" min="0" value="1" required/></td>
 						<td><button class="delete">X</button></td>
 					</tr>
 				</tbody>
