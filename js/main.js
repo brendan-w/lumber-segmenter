@@ -143,7 +143,7 @@ function display_results(results, kerf)
 		ctx.fillRect(0, 0, source_pix_length, canvas_height);
 
 		//set the font for this canvas
-		ctx.font = "11pt Arial";
+		ctx.font = "normal 11pt Arial, sans-serif";
 		ctx.textAlign = "center";
 		ctx.textBaseline = "middle";
 
