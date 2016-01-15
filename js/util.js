@@ -28,9 +28,10 @@ function selectIndex($select)
 }
 
 //parses strings with fractional components into floats
-function parseNumber(str)
+function parse_compound_float(str)
 {
 	var number = parseFloat(str);
+
 	if(!isNaN(number)) //if it's valid
 	{
 		str.replace("and", " ");
@@ -62,6 +63,7 @@ function parseNumber(str)
 			if(!isNaN(r)) { number += r; }
 		}
 	}
+
 	return number;
 }
 

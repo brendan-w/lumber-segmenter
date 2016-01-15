@@ -12,24 +12,17 @@
 
 var segmenter = {
 
-	run:function(sources, sources_unlim, segments, settings)
+	run:function(mode, kerf, sources, sources_unlim, segments)
 	{
-		var mode = settings.mode;
-		var kerf = settings.kerf;
-		var compiledSources = new Array();
-
+		var compiledSources = [];
 
 		//add the limited sources
 		for(var i = 0; i < sources.length; i++)
-		{
 			compiledSources.push(this.makeSource(sources[i].length));
-		}
 
 		//add one of each unlimited
 		for(var i = 0; i < sources_unlim.length; i++)
-		{
 			compiledSources.push(this.makeSource(sources_unlim[i].length));
-		}
 
 
 		//pre-flight checks
@@ -77,7 +70,8 @@ var segmenter = {
 		var used = undefined;
 		switch(mode)
 		{
-			case 0: //Auto
+			default:
+			case "auto": //Auto
 
 				if((sources.length + sources_unlim.length) * segments.length < 35) //rough estimate of how bad this is going to be //80
 				{
@@ -104,15 +98,15 @@ var segmenter = {
 				}
 				break;
 
-			case 1:
+			case "solve":
 				used = solve.run(compiledSources, segments, kerf); //Optimal
 				break;
 
-			case 2:
+			case "fast_1":
 				used = fast_solve_1.run(compiledSources, segments, kerf); //Sub-Optimal 1
 				break;
 
-			case 3:
+			case "fast_2":
 				used = fast_solve_2.run(compiledSources, segments, kerf); //Sub-Optimal 2
 				break;
 		}
@@ -203,13 +197,21 @@ var segmenter = {
 				maxLoss:(largestSource - averageSegment) * segments.length};
 	},
 
+	//the working object of the solvers
 	makeSource:function(l)
 	{
-		return {length:l, numSegs:0, segLength:0}; //the working object of the solvers
+		return {
+			length: l,
+			numSegs: 0,
+			segLength:0
+		};
 	},
 
 	makeResult:function(_success, _data)
 	{
-		return {success:_success, data:_data};
+		return {
+			success: _success,
+			data:_data
+		};
 	}
 };

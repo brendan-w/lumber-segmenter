@@ -104,7 +104,10 @@ aside table select
 	width:100%;
 }
 
-
+aside table#settings th
+{
+	padding-right:10px;
+}
 
 
 
@@ -112,49 +115,34 @@ aside table select
  * Output
  */
 
-#output
+#main
 {
 	padding-left:300px;
-	padding-top:30px;
 	text-align: center;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ====================================== results ======================================= */
-
-section.result
+header
 {
-	margin-top:12px;
+	border-bottom:4px solid #222;
+	padding:20px;
 }
 
-section.result h1
+#errors
 {
-	display:inline-block;
-	height:50px;
-	line-height: 50px;
-	width:100px;
+	padding:30px;
+	color:rgb(255, 30, 30);
 }
 
-section.result canvas
+#output canvas
 {
-	display:inline-block;
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+	padding-top:20px;
 }
+
+
+
 
 /* ====================================== printer ======================================= */
 

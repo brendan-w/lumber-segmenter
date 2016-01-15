@@ -45,20 +45,20 @@
 			</p>
 
 			<h2>Settings</h2>
-			<table>
+			<table id="settings">
 				<tbody>
 					<tr>
 						<th>Saw Kerf</th>
-						<td><input type="input"/></td> <!-- kerf -->
+						<td><input id="kerf" type="input" value="3/16"/></td> <!-- kerf -->
 					</tr>
 					<tr>
 						<th>Mode</th>
 						<td>
-							<select name="mode" id="mode">
-								<option selected="selected">Auto</option>
-								<option>Optimal (Slow)</option>
-								<option>Sub-Optimal 1</option>
-								<option>Sub-Optimal 2</option>
+							<select id="mode">
+								<option value="auto" selected="selected">Auto</option>
+								<option value="solve">Optimal (Slow)</option>
+								<option value="fast_1">Sub-Optimal 1</option>
+								<option value="fast_2">Sub-Optimal 2</option>
 							</select>
 						</td>
 					</tr>
@@ -97,11 +97,13 @@
 				</tbody>
 			</table>
 		</aside>
-		<section id="output">
+		<div id="main">
 			<header>
-				<button>Run</button>
+				<button id="run">Run</button>
 			</header>
-		</section>
+			<section id="output"></section>
+			<section id="errors"></section>
+		</div>
 
 
 		<!--
