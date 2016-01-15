@@ -36,26 +36,14 @@
 	</head>
 	<body onunload=''>
 		<aside>
-			<h1>Lumber Segmenter</h1>
-			<p>
-				Calculates cuts of lumber that minimize loss. Enter your lengths and quantities below, and a cut pattern will be generated.
-			</p>
-			<p>
-			 	If a source quantity is left blank, it will be treated as an unlimited resource. Fractional length measurements such as "34 1/2" are welcome. Units are irrelevant, as long as they're consistent.
-			</p>
 
+			<button id="run">Run</button>
 
-			<!-- <h2>Settings</h2> -->
+			<h2>Settings</h2>
 
 			<table id="settings">
 				<tbody>
 					<tr>
-						<th></th>
-						<th>Mode</th>
-						<th>Saw Kerf</th>
-					</tr>
-					<tr>
-						<td><button id="run">Run</button></td>
 						<td>
 							<select id="mode">
 								<option value="auto" selected="selected">Auto</option>
@@ -64,7 +52,11 @@
 								<option value="fast_2">Sub-Optimal 2</option>
 							</select>
 						</td>
+						<th>Mode</th>
+					</tr>
+					<tr>
 						<td><input id="kerf" type="input" value="3/16"/></td> <!-- kerf -->
+						<th>Saw Kerf</th>
 					</tr>
 				</tbody>
 			</table>			
@@ -106,6 +98,17 @@
 		<div id="main">
 			<ul id="output"></ul>
 			<section id="errors"></section>
+			<section id="welcome">
+				<div class="box">
+					<h1>Lumber Segmenter</h1>
+					<p>
+						Calculates cuts of lumber that minimize loss. Enter your lengths and quantities below, and a cut pattern will be generated.
+					</p>
+					<p>
+					 	If a source quantity is left blank, it will be treated as an unlimited resource. Fractional length measurements such as "34 1/2" are welcome. Units are irrelevant, as long as they're consistent.
+					</p>
+				</div>
+			</section>
 		</div>
 	</body>
  </html>

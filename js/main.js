@@ -3,6 +3,7 @@ var $sources;
 var $desires;
 var $output;
 var $errors;
+var $welcome;
 
 var canvas_width = 800; //will get overwritten in resize()
 var canvas_height = 20;
@@ -12,6 +13,7 @@ $(function() {
 	$desires = $("#desires");
 	$output = $("#output");
 	$errors = $("#errors");
+	$welcome = $("#welcome");
 
 	$("#add-source").click(function(e) {
 		add_item($sources);
@@ -234,7 +236,9 @@ function re_color()
 
 function reset_display()
 {
+	$welcome.hide();
 	$output.hide();
 	$output.empty();
 	$errors.empty();
+
 }
