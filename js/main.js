@@ -1,8 +1,3 @@
-/*
- *  Brendan Whitfield (C) 2014
- *
- *  Display & event handler
- */
 
 var $sources;
 var $desires;
@@ -32,13 +27,13 @@ $(function() {
 	$("#run").click(run);
 
 	re_color(); //color the initial list item
+	resize();
 });
 
 
 function run(e)
 {
-	$errors.empty();
-	$output.empty();
+	reset_display();
 
 	var error = false;
 
@@ -122,29 +117,25 @@ function run(e)
 
 function display_results(results, kerf)
 {
-	$output.hide();
-	$output.empty();
 
 	//compute the scale factor mapping inches to pixels
-	// var canvasWidth = $("canvas").eq(0).width();
-	// var canvasHeight = $("canvas").eq(0).height();
-	var canvasWidth = 500;
+	var canvasWidth = 900;
 	var canvasHeight = 20;
 	var scaleFactor = canvasWidth / largest_result(results);
 
 	//configure each piece to show its contents
-	results.forEach(function(result, i) {
+	results.forEach(function(result) {
 
 		var $r = add_result();
-
-		//set the length text
-		var length_string = Math.round(result.length * 100) / 100;
 
 		//calculate the relative width of the piece
 		var sourceLength = Math.round(result.length * scaleFactor);
 
+		//set the length text
+		$r.find("h1").text(Math.round(result.length * 100) / 100);
+
 		//get the canvas and context
-		var ctx = $r[0].getContext('2d');
+		var ctx = $r.find("canvas")[0].getContext('2d');
 
 		//draw the grey background
 		ctx.fillStyle = "rgb(200,200,200)";
@@ -168,7 +159,7 @@ function display_results(results, kerf)
 			//write the segment length
 			var middle = offset + (width / 2);
 			ctx.fillStyle = "#000";
-			ctx.fillText(segment.length + "\"", middle, (canvasHeight / 2));
+			ctx.fillText(segment.length, middle, (canvasHeight / 2));
 
 			//draw the kerf if it's NOT the last segment
 			if(s != result.segments.length - 1)
@@ -182,6 +173,13 @@ function display_results(results, kerf)
 	});
 
 	$output.show();
+}
+
+
+function resize()
+{
+	//recalculate the size of output canvas'
+
 }
 
 
@@ -199,7 +197,7 @@ function largest_result(results)
 
 function add_result()
 {
-	var $el = $("<canvas width='500' height='20'></canvas>")
+	var $el = $("<li><h1></h1><canvas width='900' height='20'></canvas></li>")
 	$output.append($el);
 	return $el;
 }
@@ -228,4 +226,11 @@ function re_color()
 		$(row).find(".length").css(color);
 		$(row).find(".quantity").css(color);
 	});
+}
+
+function reset_display()
+{
+	$output.hide();
+	$output.empty();
+	$errors.empty();
 }

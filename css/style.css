@@ -123,7 +123,7 @@ aside table#settings th
 
 header
 {
-	border-bottom:4px solid #222;
+	border-bottom:1px solid #444;
 	padding:20px;
 }
 
@@ -133,12 +133,22 @@ header
 	color:rgb(255, 30, 30);
 }
 
-#output canvas
+ul#output li
 {
-	display:block;
-	margin-left:auto;
-	margin-right:auto;
 	padding-top:20px;
+}
+
+
+ul#output li *
+{
+	display:inline-block;
+}
+
+ul#output li h1
+{
+	color:white;
+	font-size: 26px;
+	padding-right:20px;
 }
 
 
