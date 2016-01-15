@@ -4,6 +4,8 @@ var $desires;
 var $output;
 var $errors;
 
+var canvas_width = 800; //will get overwritten in resize()
+var canvas_height = 20;
 
 $(function() {
 	$sources = $("#sources");
@@ -117,11 +119,8 @@ function run(e)
 
 function display_results(results, kerf)
 {
-
-	//compute the scale factor mapping inches to pixels
-	var canvasWidth = 900;
-	var canvasHeight = 20;
-	var scaleFactor = canvasWidth / largest_result(results);
+	//compute the scale factor mapping measurements to pixels
+	var scale = canvas_width / largest_result(results);
 
 	//configure each piece to show its contents
 	results.forEach(function(result) {
@@ -129,7 +128,7 @@ function display_results(results, kerf)
 		var $r = add_result();
 
 		//calculate the relative width of the piece
-		var sourceLength = Math.round(result.length * scaleFactor);
+		var source_pix_length = Math.round(result.length * scale);
 
 		//set the length text
 		$r.find("h1").text(Math.round(result.length * 100) / 100);
@@ -139,7 +138,7 @@ function display_results(results, kerf)
 
 		//draw the grey background
 		ctx.fillStyle = "rgb(200,200,200)";
-		ctx.fillRect(0, 0, sourceLength, canvasHeight);
+		ctx.fillRect(0, 0, source_pix_length, canvas_height);
 
 		//set the font for this canvas
 		ctx.font = "11pt Arial";
@@ -150,21 +149,22 @@ function display_results(results, kerf)
 		var offset = 0; //pixels used on current segment
 
 		result.segments.forEach(function(segment, s) {
-			var width = Math.round((segment.length + kerf) * scaleFactor);
+			var width = Math.round((segment.length + kerf) * scale);
 
 			//draw the segment
 			ctx.fillStyle = segment.color;
-			ctx.fillRect(offset, 0, width, canvasHeight);
+			ctx.fillRect(offset, 0, width, canvas_height);
 
 			//write the segment length
-			var middle = offset + (width / 2);
 			ctx.fillStyle = "#000";
-			ctx.fillText(segment.length, middle, (canvasHeight / 2));
+			ctx.fillText(segment.length,       //text
+						 offset + (width / 2), //X
+						 (canvas_height / 2)); //Y
 
 			//draw the kerf if it's NOT the last segment
 			if(s != result.segments.length - 1)
 			{
-				ctx.fillRect(offset + width -1, 0, 1, canvasHeight);
+				ctx.fillRect(offset + width -1, 0, 1, canvas_height);
 			}
 
 			//advance the offset
@@ -179,7 +179,7 @@ function display_results(results, kerf)
 function resize()
 {
 	//recalculate the size of output canvas'
-
+	canvas_width = $output.width() - 80 - 100;
 }
 
 
@@ -197,7 +197,11 @@ function largest_result(results)
 
 function add_result()
 {
-	var $el = $("<li><h1></h1><canvas width='900' height='20'></canvas></li>")
+	var $el = $(" \
+	<li> \
+		<h1></h1> \
+		<canvas width='" + canvas_width + "' height='" + canvas_height + "'></canvas> \
+	</li>");
 	$output.append($el);
 	return $el;
 }
