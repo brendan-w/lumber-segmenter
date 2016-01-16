@@ -6,6 +6,14 @@ http://people.rit.edu/bcw7044/tools/lumber/
 Single page application that calculates cuts of lumber and minimizes loss.
 
 
+Building
+========
+
+```shell
+$ npm install
+$ npm run build
+```
+
 
 Algorithms
 ==========
