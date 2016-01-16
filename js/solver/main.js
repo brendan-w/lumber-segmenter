@@ -15,9 +15,11 @@ function descending_length(a, b) { return b.length - a.length; }
 function run(job)
 {
 
-    //having the solvers allocate the bigger cuts first will cause
+    //Having the solvers allocate the bigger cuts first will cause
     //boards to fill up faster, which rapidly disqualifies choices,
-    //and helps speed the process along.
+    //and helps speed the process along. This way, you won't waste
+    //time piling on a bunch of small pieces, only to find that you
+    //have no room for your big pieces.
     job.sources.sort(descending_length);
     job.cuts.sort(descending_length);
 
