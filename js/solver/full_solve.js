@@ -22,6 +22,12 @@ var full_solve = {
           cut_index : source_index,
           ...
         ]
+
+        {
+            source_index : [ cut_index ]
+        }
+
+        source indicies are computed by using this
     */
 
     //main working variable
@@ -33,9 +39,53 @@ var full_solve = {
 
     },
 
-    solve: function(job) {
-        
-    }
+    //WARNING: recursive
+    choose_source: function(job) {
+        if(cuts_left(job) > 0)
+        {
+            //loop through every length (type) of source material
+            job.sources.forEach(function(source, s) {
+                if(source.quantity == 0) return; //skip spent sources
+
+                fill_source(job, source.length, []);
+
+            });
+        }
+        else
+        {
+            //solution has been reached
+        }
+    },
+
+    //WARNING: recursive
+    //tries to make another cut
+    fill_source: function(job, space_left, links) {
+        if(space_left > 0)
+        {
+            //loop through every length (type) of cut
+            job.cuts.forEach(function(cut, c) {
+                if(cut.quantity == 0) return; //skip spent cuts
+
+                if((space_left != cut.length) ||
+                   (space_left < cut.length + job.settings.kerf))
+                    return;
+
+                //make the cut
+                cut.quantity--;
+                space_left -= 
+                make_cut(job, s, c);
+
+                this.solve(job);
+                undo_cut(job, s, c);
+            });
+        }
+        else
+        {
+            //board has been filled
+            report_links();
+        }
+    },
+
 };
 
 

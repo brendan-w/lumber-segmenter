@@ -20,6 +20,9 @@ function run(job)
     job.cuts.sort(descending_length);
 
 
+    //TODO: resolve quantities of Infinity to actual counts
+
+
     switch(job.settings.mode)
     {
         default:
