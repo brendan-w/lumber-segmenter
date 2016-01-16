@@ -1,4 +1,12 @@
 
+# build files
+index.html
+ui.js
+solver.js
+style.css
+
+
+
 # Created by https://www.gitignore.io/api/node
 
 ### Node ###
