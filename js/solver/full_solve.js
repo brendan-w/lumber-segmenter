@@ -14,7 +14,7 @@ var full_solve = {
 
     run:function(job) {
 
-        var best_layout;
+        var best_layout = null;
 
         //the stats for the best layout
         var best_loss; //minimize this
@@ -42,6 +42,14 @@ var full_solve = {
 
                 //compute a cut layout for this source
                 var filled_board = full_solve.fill_board(job, make_board(job, s));
+
+                //if this board couldn't be cut... at all...
+                //this can happen when all of the cut sizes are larger than the remaining boards
+                if(filled_board.cut_indices.length == 0)
+                {
+                    //dont reveal incomplete candidates
+                    return; //don't recurse
+                }
 
                 source.quantity--; //deduct
                 layout.push(filled_board);
@@ -97,12 +105,12 @@ var full_solve = {
                 //if this cut size is too long for the remaining space
                 if(board.space_left < cut.length)
                 {
-                    //there's a chance that all of the cuts we've been trying were to big.
-                    //so, whenever we run into a piece that's too big, report it anyway.
-                    //also handles cases where NO cuts can be made, because the board was
-                    //too small to begin with.
+                    //there's a chance that this is all we'll get out of this board.
+                    //The rest is simply loss. So, whenever we run into a piece that's too big,
+                    //report it anyway. Also handles cases where NO cuts could be made,
+                    //because the board might have been too small for ANY of our cut sizes.
                     reveal_candidate(clone_board(board));
-                    return; //skip
+                    return; //don't recurse
                 }
 
                 //if we've made it this far, then there is enough space for our cut size
