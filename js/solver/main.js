@@ -98,6 +98,8 @@ function resolve_to_user_objects(job, layout)
             output_board.cuts.push(output_cut);
         });
 
+        output_board.cuts.sort(descending_length);
+
         output.push(output_board);
     });
 
