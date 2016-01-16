@@ -12,9 +12,8 @@ JS_UI = js/utils.js \
 
 # bundle for the solver worker
 JS_SOLVER = js/solver/utils.js \
-            js/solver/full_solve.js \
-            js/solver/fast_solve_1.js \
-            js/solver/fast_solve_2.js \
+            js/solver/optimal.js \
+            js/solver/suboptimal.js \
             js/solver/main.js
             
 

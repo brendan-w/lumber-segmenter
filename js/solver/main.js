@@ -25,8 +25,18 @@ function run(job)
     job.sources.sort(descending_length);
     job.cuts.sort(descending_length);
 
+    var layout = null;
+
     //SOLVE
-    var layout = full_solve.run(job);;
+    switch(job.settings.mode)
+    {
+        default:
+        case "optimal":
+            layout = optimal.run(job);;
+            break;
+        case "suboptimal":
+            break;
+    }
 
     if(layout)
         emit("success", {

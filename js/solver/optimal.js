@@ -7,10 +7,7 @@
  */
 
 
-
-
-var full_solve = {
-
+var optimal = {
 
     run:function(job) {
 
@@ -20,7 +17,7 @@ var full_solve = {
         var best_loss; //minimize this
         var best_clumping; //TODO
 
-        full_solve.choose_source(job, [], function(layout) {
+        optimal.choose_source(job, [], function(layout) {
             
             var loss = loss_in_layout(layout);
 
@@ -46,7 +43,7 @@ var full_solve = {
                     return; //skip spent sources
 
                 //compute a cut layout for this source
-                var filled_board = full_solve.fill_board(job, make_board(job, s));
+                var filled_board = optimal.fill_board(job, make_board(job, s));
 
                 //if this board couldn't be cut... at all...
                 //this can happen when all of the cut sizes are larger than the remaining boards
@@ -61,7 +58,7 @@ var full_solve = {
                 allocate_cuts(job, filled_board); //decrement the quantities of cuts accordingly
 
                 //recurse for the next source board
-                full_solve.choose_source(job, layout, reveal_candidate);
+                optimal.choose_source(job, layout, reveal_candidate);
 
                 deallocate_cuts(job, filled_board); //replace the quantities of cuts
                 layout.pop();
@@ -86,7 +83,7 @@ var full_solve = {
 
         var best_board; //the layout with the least loss
 
-        full_solve.cut_board(job, board, function(filled_board) {
+        optimal.cut_board(job, board, function(filled_board) {
 
             //see if this solution is any better than the last
             if((!best_board) || (filled_board.space_left < best_board.space_left))
@@ -134,7 +131,7 @@ var full_solve = {
                 //(board.space_left >= cut.length)
 
                 //recurse for the next cut
-                full_solve.cut_board(job, board, reveal_candidate);
+                optimal.cut_board(job, board, reveal_candidate);
 
                 //undo the cut
                 board.space_left = old_space_left;
