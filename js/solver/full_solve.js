@@ -14,62 +14,81 @@
 
 var full_solve = {
 
-    /*
-        output:
-
-        [
-            //source, with a list of it's cuts
-            {
-                source_index: x,
-                space_left: x,
-                cut_indices: [ cut_index, ... ]
-            },
-            ...
-        ]
-    */
-
-
-    //model used to represent filled (cut) source material (boards)
-    //run() returns a list of these
-    make_output_board: function(job, s) {
-        return {
-            source_index: s,
-            space_left: job.sources[s].length,
-            cut_indices: [],
-        };
-    },
-
-
-    //main working variable
-    //array mapping cuts of wood onto their parent sources (links[cut_index] = source_index)
-    links:[],
-
 
     run:function(job) {
 
+        var best_layout;
+
+        //the stats for the best layout
+        var best_loss; //minimize this
+        var best_clumping; //TODO
+
+        full_solve.choose_source(job, [], function(layout) {
+            
+            if(!best_layout || (loss_in_layout(layout) < best_loss))
+                best_layout = layout;
+
+        });
+
+        return best_layout;
     },
 
     //WARNING: recursive
-    choose_source: function(job) {
+    choose_source: function(job, layout, reveal_candidate) {
         if(cuts_left(job) > 0)
         {
             //loop through every length (type) of source material
             job.sources.forEach(function(source, s) {
-                if(source.quantity == 0) return; //skip spent sources
 
-                fill_source(job, source.length, []);
+                if(source.quantity == 0)
+                    return; //skip spent sources
 
+                //compute a cut layout for this source
+                var filled_board = full_solve.fill_board(job, make_board(job, s));
+
+                source.quantity--; //deduct
+                layout.push(filled_board);
+
+                //recurse for the next source board
+                full_solve.choose_source(job, layout, reveal_candidate);
+
+                layout.pop();
+                source.quantity++;
             });
         }
         else
         {
             //solution has been reached
+            reveal_candidate(clone_layout(layout));
         }
+    },
+
+
+
+
+
+
+    //wrapper function around the recursive board cutter.
+    //Stores and returns the best solution.
+    fill_board: function(job, board) {
+
+        var best_board; //the layout with the least loss
+
+        full_solve.cut_board(job, board, function(filled_board) {
+
+            //see if this solution is any better than the last
+            if((!best_board) || (filled_board.space_left < best_board.space_left))
+                best_board = filled_board;
+        });
+
+        return best_board;
     },
 
     //WARNING: recursive
     //tries to make another cut
-    fill_source: function(job, board) {
+    cut_board: function(job, board, reveal_candidate) {
+
+        //if there's work left to do on this board
         if((space_left > 0) && (cuts_left(job) > 0))
         {
             //loop through every length (type) of cut still available
@@ -80,7 +99,14 @@ var full_solve = {
 
                 //if this cut size is too long for the remaining space
                 if(board.space_left < cut.length)
+                {
+                    //there's a chance that all of the cuts we've been trying were to big.
+                    //so, whenever we run into a piece that's too big, report it anyway.
+                    //also handles cases where NO cuts can be made, because the board was
+                    //too small to begin with.
+                    reveal_candidate(clone_board(board));
                     return; //skip
+                }
 
                 //if we've made it this far, then there is enough space for our cut size
 
@@ -96,7 +122,7 @@ var full_solve = {
                 //(board.space_left >= cut.length)
 
                 //recurse for the next cut
-                full_solve.fill_source(job, board);
+                full_solve.cut_board(job, board, reveal_candidate);
 
                 //undo the cut
                 board.space_left = old_space_left;
@@ -106,12 +132,23 @@ var full_solve = {
         }
         else
         {
-            //board has been filled
-            report_links();
+            //board has been filled, or we've finished up all of the desired cuts
+            //clone, don't expose the actual object that we're fiddeling with 
+            reveal_candidate(clone_board(board));
         }
     },
 
 };
+
+
+
+
+
+
+
+
+
+
 
 
 
