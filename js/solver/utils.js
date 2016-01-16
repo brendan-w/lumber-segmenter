@@ -2,18 +2,20 @@
 
 //returns the number of cuts left to make on a job
 //will return Infinity if one or more sources are unlimited
-function sources_left(job) {
+function sources_left(job)
+{
     var total = 0;
-    for(var i = 0; i < job.sources.length)
+    for(var i = 0; i < job.sources.length; i++)
         total += job.sources[i].quantity;
     return total;
 }
 
 
 //returns the number of cuts left to make on a job
-function cuts_left(job) {
+function cuts_left(job)
+{
     var total = 0;
-    for(var i = 0; i < job.cuts.length)
+    for(var i = 0; i < job.cuts.length; i++)
         total += job.cuts[i].quantity;
     return total;
 }
@@ -51,7 +53,7 @@ function make_board(job, s)
         space_left   : job.sources[s].length,
         cut_indices  : [],
     };
-},
+}
 
 //used when we stow the best permutation of cuts on a board
 function clone_board(board)
@@ -61,7 +63,7 @@ function clone_board(board)
         space_left   : board.space_left,
         cut_indices  : board.cut_indices.slice(0),
     };
-},
+}
 
 //used when we stow the best permutation of an entire layout (list of boards)
 function clone_layout(layout)
@@ -71,7 +73,7 @@ function clone_layout(layout)
         new_layout.push(clone_board(board));
     });
     return new_layout;
-},
+}
 
 //computes the total space_left for every board in the layout
 function loss_in_layout(layout)
@@ -88,7 +90,24 @@ function loss_in_layout(layout)
         total += space_left;
     });
 
-    return space_left;
+    return total;
+}
+
+
+//deducts the quantites of cuts that a filled board consumes
+function allocate_cuts(job, board)
+{
+    board.cut_indices.forEach(function(c) {
+        job.cuts[c].quantity--;
+    });
+}
+
+//replaces the quantites of cuts that a filled board consumes
+function deallocate_cuts(job, board)
+{
+    board.cut_indices.forEach(function(c) {
+        job.cuts[c].quantity++;
+    });
 }
 
 

@@ -44,8 +44,45 @@ function run(job)
             break;
     }
 
-    return layout;
+    console.log(layout);
+
+    if(layout)
+        return { success:true, data:convert_structure_patch(job, layout) };
+    else
+        return { success:false, data:"failed to compute layout" };
 }
+
+
+/*
+    A dirty hack to adapt this to the UI
+    TODO: don't make dirty hacks
+*/
+function convert_structure_patch(job, layout)
+{
+    var output = [];
+    layout.forEach(function(board) {
+
+        var output_board = {
+            length: job.sources[board.source_index].length,
+            segLength: 0,
+            segments: [],
+        };
+
+        board.cut_indices.forEach(function(c) {
+            var cut = job.cuts[c];
+            
+            output_board.segments.push({
+                length: cut.length,
+                color: cut.color,
+            });
+        });
+
+        output.push(output_board);
+    });
+
+    return output;
+}
+
 
 
 

@@ -11,7 +11,8 @@ JS_UI = js/utils.js \
         js/main.js
 
 # bundle for the solver worker
-JS_SOLVER = js/solver/full_solve.js \
+JS_SOLVER = js/solver/utils.js \
+            js/solver/full_solve.js \
             js/solver/fast_solve_1.js \
             js/solver/fast_solve_2.js \
             js/solver/main.js

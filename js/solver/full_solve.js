@@ -22,6 +22,9 @@ var full_solve = {
 
         full_solve.choose_source(job, [], function(layout) {
             
+            // console.log("layout: ");
+            // console.log(layout);
+
             if(!best_layout || (loss_in_layout(layout) < best_loss))
                 best_layout = layout;
 
@@ -32,6 +35,11 @@ var full_solve = {
 
     //WARNING: recursive
     choose_source: function(job, layout, reveal_candidate) {
+
+        // console.log("choose_source:");
+        // console.log(layout);
+        // console.log(job);
+
         if(cuts_left(job) > 0)
         {
             //loop through every length (type) of source material
@@ -53,10 +61,12 @@ var full_solve = {
 
                 source.quantity--; //deduct
                 layout.push(filled_board);
+                allocate_cuts(job, filled_board); //decrement the quantities of cuts accordingly
 
                 //recurse for the next source board
                 full_solve.choose_source(job, layout, reveal_candidate);
 
+                deallocate_cuts(job, filled_board); //replace the quantities of cuts
                 layout.pop();
                 source.quantity++;
             });
@@ -81,6 +91,9 @@ var full_solve = {
 
         full_solve.cut_board(job, board, function(filled_board) {
 
+            // console.log("board: ");
+            // console.log(filled_board);
+
             //see if this solution is any better than the last
             if((!best_board) || (filled_board.space_left < best_board.space_left))
                 best_board = filled_board;
@@ -93,11 +106,17 @@ var full_solve = {
     //tries to make another cut
     cut_board: function(job, board, reveal_candidate) {
 
+        // console.log("cut_board:");
+        // console.log(clone_board(board));
+
         //if there's work left to do on this board
-        if((space_left > 0) && (cuts_left(job) > 0))
+        if((board.space_left > 0) && (cuts_left(job) > 0))
         {
             //loop through every length (type) of cut still available
             job.cuts.forEach(function(cut, c) {
+
+                // console.log("Trying to cut with:");
+                // console.log(cut);
 
                 if(cut.quantity == 0)
                     return; //skip spent cut sizes
@@ -105,6 +124,7 @@ var full_solve = {
                 //if this cut size is too long for the remaining space
                 if(board.space_left < cut.length)
                 {
+                    // console.log("out of space: " + board.space_left + ", " + cut.length);
                     //there's a chance that this is all we'll get out of this board.
                     //The rest is simply loss. So, whenever we run into a piece that's too big,
                     //report it anyway. Also handles cases where NO cuts could be made,

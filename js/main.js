@@ -131,6 +131,8 @@ function on_solver_message(e)
 
 function display_results(results, kerf)
 {
+    console.log(results);
+
     //compute the scale factor mapping measurements to pixels
     var scale = canvas_width / largest_result(results);
 
