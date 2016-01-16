@@ -55,6 +55,19 @@ button
 	cursor: pointer;
 }
 
+.center
+{
+	/* vertical centering */
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+
+	margin-left:auto;
+	margin-right:auto;
+}
+
 
 
 /*
@@ -221,6 +234,24 @@ ul#output li h1
 
 
 /*
+ * Progress Bar
+ */
+
+#progress
+{
+	width:400px;
+	height:20px;
+	background-color: #333;
+}
+
+#progress .bar
+{
+	height:100%;
+	background-color: white;
+}
+
+
+/*
  * Print Button
  */
 
@@ -250,16 +281,7 @@ ul#output li h1
 
 #welcome
 {
-	/* vertical centering */
-	position: relative;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-
 	text-align: left;
-	margin-left:auto;
-	margin-right:auto;
 	width:300px;
 }
 

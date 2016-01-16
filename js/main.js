@@ -6,6 +6,7 @@ var $cuts;
 var $output;
 var $print;
 var $errors;
+var $progress;
 var $welcome;
 
 var canvas_width = 800; //will get overwritten in resize()
@@ -22,6 +23,7 @@ $(function() {
     $output = $("#output");
     $print = $("#print");
     $errors = $("#errors");
+    $progress = $("#progress");
     $welcome = $("#welcome");
 
     $("#add-source").click(function(e) {
@@ -115,6 +117,9 @@ function run(e)
 
     //start the job
     solver_worker.postMessage(job);
+
+    set_progress(0);
+    $progress.show();
 }
 
 
@@ -127,12 +132,14 @@ function on_solver_message(e)
     else if(message.type == "failure")
         log_error(message.data);
     else if(message.type == "progress")
-        console.log(message.data);
+        set_progress(message.data);
 }
 
 
 function display_results(results)
 {
+    $progress.hide();
+
     //compute the scale factor mapping measurements to pixels
     var scale = canvas_width / largest_board(results);
 
@@ -198,6 +205,12 @@ function resize()
     canvas_width = (canvas_width > max_canvas_width) ? max_canvas_width : canvas_width;
 }
 
+//sets the progress bar to a given percentage [0,1]
+function set_progress(value)
+{
+    var w = Math.round($progress.width() * value);
+    $progress.find(".bar").width(w);
+}
 
 //used for scaling the graphics appropriately
 function largest_board(results)
@@ -260,6 +273,7 @@ function reset_all()
     $output.empty();
     $print.hide();
     $errors.empty();
+    $progress.hide();
 
     if(solver_worker)
     {
