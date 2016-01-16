@@ -221,6 +221,30 @@ ul#output li h1
 
 
 /*
+ * Print Button
+ */
+
+#print
+{
+	margin-top:50px;
+}
+
+#print button
+{
+	width:200px;
+	height:50px;
+	background: #333;
+}
+
+#print button:hover
+{
+	width:200px;
+	height:50px;
+	background: #444;
+}
+
+
+/*
  * Welcome message
  */
 

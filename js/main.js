@@ -4,6 +4,7 @@ var solver_worker;
 var $sources;
 var $cuts;
 var $output;
+var $print;
 var $errors;
 var $welcome;
 
@@ -19,6 +20,7 @@ $(function() {
     $sources = $("#sources");
     $cuts = $("#cuts");
     $output = $("#output");
+    $print = $("#print");
     $errors = $("#errors");
     $welcome = $("#welcome");
 
@@ -37,8 +39,15 @@ $(function() {
 
     $("#run").click(run);
 
+    $print.find("button").click(function(e) {
+        window.print();
+    });
+
     re_color(); //color the initial list item
     resize();
+    reset_all();
+
+    $welcome.show();
 });
 
 
@@ -199,13 +208,14 @@ function display_results(results, kerf)
     });
 
     $output.show();
+    $print.show();
 }
 
 
 function resize()
 {
     //recalculate the size of output canvas'
-    canvas_width = $output.width() - 80;
+    canvas_width = $output.width() - 104; //TODO: this is an experimentally determined value
     canvas_width = (canvas_width > max_canvas_width) ? max_canvas_width : canvas_width;
 }
 
@@ -263,6 +273,7 @@ function reset_all()
     $welcome.hide();
     $output.hide();
     $output.empty();
+    $print.hide();
     $errors.empty();
 
     if(solver_worker)
