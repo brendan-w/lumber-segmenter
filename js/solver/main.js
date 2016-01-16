@@ -16,12 +16,13 @@ function run(job)
 {
 
     //most solvers want these in descending size order
-    job.sources.sort(descending_length);
-    job.cuts.sort(descending_length);
+    // job.sources.sort(descending_length);
+    // job.cuts.sort(descending_length);
 
 
     //TODO: resolve quantities of Infinity to actual counts
 
+    var layout = null;
 
     switch(job.settings.mode)
     {
@@ -31,7 +32,7 @@ function run(job)
             break;
 
         case "solve":
-            var used = full_solve.run(job);
+            layout = full_solve.run(job);
             break;
 
         case "fast_1":
@@ -42,6 +43,8 @@ function run(job)
             //TODO
             break;
     }
+
+    return layout;
 }
 
 

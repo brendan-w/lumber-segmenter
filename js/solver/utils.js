@@ -93,8 +93,8 @@ function loss_in_layout(layout)
 
 
 /*
-    Used to determine whether the loss in this layout is concentrated
-    mostly on one board, or is spread out across all of them
+    Used to determine whether the loss in the given layout is concentrated
+    or is spread out (which is obnoxious).
 
     For instance, a good case:
 
@@ -127,7 +127,7 @@ function loss_in_layout(layout)
 
     So, I'm defining clumping as the percent of the loss above average:
 
-    loss_above_average_line / total_loss
+        loss_above_average_line / total_loss
 
     This yeilds a normalized value, where:
         1 = best clumping
