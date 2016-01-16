@@ -10,6 +10,26 @@ function emit(type, data)
 }
 
 
+function clone(obj)
+{
+    if (obj == null || typeof obj != "object")
+    {
+        console.error("unimplemented clone() of non-object type");
+        return obj;
+    }
+
+    var copy = obj.constructor();
+    
+    for (var attr in obj)
+    {
+        if (obj.hasOwnProperty(attr))
+            copy[attr] = obj[attr];
+    }
+    
+    return copy;
+}
+
+
 //returns the number of cuts left to make on a job
 //will return Infinity if one or more sources are unlimited
 function sources_left(job)

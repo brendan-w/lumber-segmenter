@@ -120,30 +120,30 @@ function run(e)
 
 function on_solver_message(e)
 {
-    var result = e.data;
-    if(result.type == "success")
-        //TODO: get actual kerf
-        display_results(result.data, (3/16));
-    else if(result.type == "failure")
-        log_error(result.data);
+    var message = e.data;
+
+    if(message.type == "success")
+        display_results(message.data, (3/16));
+    else if(message.type == "failure")
+        log_error(message.data);
 }
 
 
-function display_results(results, kerf)
+function display_results(results)
 {
     //compute the scale factor mapping measurements to pixels
-    var scale = canvas_width / largest_result(results);
+    var scale = canvas_width / largest_board(results);
 
     //configure each piece to show its contents
-    results.forEach(function(result) {
+    results.layout.forEach(function(board) {
 
         var $r = add_result();
 
         //calculate the relative width of the piece
-        var source_pix_length = Math.round(result.length * scale);
+        var source_pix_length = Math.round(board.length * scale);
 
         //set the length text
-        $r.find("h1").text(Math.round(result.length * 100) / 100);
+        $r.find("h1").text(Math.round(board.length * 100) / 100);
 
         //get the canvas and context
         var ctx = $r.find("canvas")[0].getContext('2d');
@@ -158,23 +158,23 @@ function display_results(results, kerf)
         ctx.textBaseline = "middle";
 
         //loop for contents
-        var offset = 0; //pixels used on current segment
+        var offset = 0; //pixels used on current cut
 
-        result.segments.forEach(function(segment, s) {
-            var width = Math.round((segment.length + kerf) * scale);
+        board.cuts.forEach(function(cut, c) {
+            var width = Math.round((cut.length + results.settings.kerf) * scale);
 
-            //draw the segment
-            ctx.fillStyle = segment.color;
+            //draw the cut
+            ctx.fillStyle = cut.color;
             ctx.fillRect(offset, 0, width, canvas_height);
 
-            //write the segment length
+            //write the cut length
             ctx.fillStyle = "#000";
-            ctx.fillText(segment.length,       //text
+            ctx.fillText(cut.length,       //text
                          offset + (width / 2), //X
                          (canvas_height / 2)); //Y
 
-            //draw the kerf if it's NOT the last segment
-            if(s != result.segments.length - 1)
+            //draw the kerf if it's NOT the last cut
+            if(c != board.cuts.length - 1)
             {
                 ctx.fillRect(offset + width -1, 0, 1, canvas_height);
             }
@@ -198,12 +198,12 @@ function resize()
 
 
 //used for scaling the graphics appropriately
-function largest_result(results)
+function largest_board(results)
 {
     var largest = 0;
-    results.forEach(function(r) {
-        if(r.length > largest)
-            largest = r.length;
+    results.layout.forEach(function(board) {
+        if(board.length > largest)
+            largest = board.length;
     });
     return largest;
 }
