@@ -1,16 +1,17 @@
 
 var $sources;
-var $desires;
+var $cuts;
 var $output;
 var $errors;
 var $welcome;
 
 var canvas_width = 800; //will get overwritten in resize()
 var canvas_height = 20;
+var canvas_bg = "#555";
 
 $(function() {
 	$sources = $("#sources");
-	$desires = $("#desires");
+	$cuts = $("#cuts");
 	$output = $("#output");
 	$errors = $("#errors");
 	$welcome = $("#welcome");
@@ -19,8 +20,8 @@ $(function() {
 		add_item($sources);
 	});
 
-	$("#add-desire").click(function(e) {
-		add_item($desires);
+	$("#add-cut").click(function(e) {
+		add_item($cuts);
 	});
 
 	$(".delete").on("click", function(e) {
@@ -45,7 +46,7 @@ function run(e)
 	var kerf          = parse_compound_float($("#kerf").val());
 	var sources       = [];
 	var sources_unlim = [];
-	var desires       = [];
+	var cuts       = [];
 
 
 	//fill the arrays above
@@ -75,7 +76,7 @@ function run(e)
 	});
 
 
-	$desires.find("tbody tr").each(function(i, row) {
+	$cuts.find("tbody tr").each(function(i, row) {
 		var l = parse_compound_float($(row).find(".length").val());
 		var q = parseInt($(row).find(".quantity").val());
 		var c = $(row).find(".color").css("background-color");
@@ -96,7 +97,7 @@ function run(e)
 			{
 				for(var j = 0; j < q; j++)
 				{
-					desires.push({
+					cuts.push({
 						length: l,
 						color: c
 					});
@@ -110,7 +111,7 @@ function run(e)
 	if(error)
 		return;
 
-	var result = segmenter.run(mode, kerf, sources, sources_unlim, desires); //the magic call
+	var result = segmenter.run(mode, kerf, sources, sources_unlim, cuts); //the magic call
 
 	if(result.success)
 		display_results(result.data, kerf);
@@ -139,7 +140,7 @@ function display_results(results, kerf)
 		var ctx = $r.find("canvas")[0].getContext('2d');
 
 		//draw the grey background
-		ctx.fillStyle = "rgb(200,200,200)";
+		ctx.fillStyle = canvas_bg;
 		ctx.fillRect(0, 0, source_pix_length, canvas_height);
 
 		//set the font for this canvas
@@ -224,10 +225,10 @@ function add_item($table)
 	re_color(); //update the color codes
 }
 
-//recolors the list of desired cuts
+//recolors the list of cuts
 function re_color()
 {
-	$desires.find("tbody tr").each(function(i, row) {
+	$cuts.find("tbody tr").each(function(i, row) {
 		$(row).find(".color").css(color_for_index(i));
 	});
 }
