@@ -10,7 +10,43 @@
  */
 
 
-var solve = {
+
+
+var full_solve = {
+
+    /*
+        output:
+
+        [
+          cut_index : source_index,
+          cut_index : source_index,
+          ...
+        ]
+    */
+
+    //main working variable
+    //array mapping cuts of wood onto their parent sources (links[cut_index] = source_index)
+    links:[],
+
+
+    run:function(job) {
+
+    },
+
+    solve: function(job) {
+        
+    }
+};
+
+
+
+
+
+
+
+
+
+var full_solve = {
 
     //running vars
     sources:undefined,

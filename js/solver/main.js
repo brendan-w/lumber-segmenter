@@ -10,6 +10,44 @@
  */
 
 
+function descending_length(a, b) { return b.length - a.length; }
+
+function run(job)
+{
+
+    //most solvers want these in descending size order
+    job.sources.sort(descending_length);
+    job.cuts.sort(descending_length);
+
+
+    switch(job.settings.mode)
+    {
+        default:
+        case "auto": //Auto
+            //TODO
+            break;
+
+        case "solve":
+            var used = full_solve.run(job);
+            break;
+
+        case "fast_1":
+            //TODO
+            break;
+
+        case "fast_2":
+            //TODO
+            break;
+    }
+}
+
+
+
+
+
+
+
+
 var segmenter = {
 
     run:function(mode, kerf, sources, sources_unlim, segments)
@@ -219,12 +257,7 @@ var segmenter = {
 
 
 onmessage = function(e) {
-    var m = e.data;
-    console.log(m);
     //all messages start a new cut job
-    postMessage(segmenter.run(m.mode,
-                              m.kerf,
-                              m.sources,
-                              m.sources_unlim,
-                              m.segments));
+    console.log(e.data);
+    postMessage(run(e.data));
 };

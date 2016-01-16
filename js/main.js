@@ -55,39 +55,29 @@ function run(e)
 {
     reset_all(); //kills the old worker
 
-    var error = false;
-
-    var mode          = $("#mode").val();
-    var kerf          = parse_compound_float($("#kerf").val());
-    var sources       = [];
-    var sources_unlim = [];
-    var cuts          = [];
-
+    //make a new job for the solver
+    var job = {
+        settings : {
+            mode : $("#mode").val(),
+            kerf : parse_compound_float($("#kerf").val()),
+        },
+        sources : [],
+        cuts : [],
+    };
 
     //fill the arrays above
     $sources.find("tbody tr").each(function(i, row) {
         var l = parse_compound_float($(row).find(".length").val());
         var q = parseInt($(row).find(".quantity").val());
 
-        if(!isNaN(l))
-        {
-            if(isNaN(q)) //unlimited quantity
-            {
-                sources_unlim.push({ length: l });
-            } 
-            else //given quantity
-            {
-                for(var j = 0; j < q; j++)
-                {
-                    sources.push({ length: l });
-                }
-            }
-        }
-        else
+        if(isNaN(l))
         {
             log_error("Source #" + i + ": invalid length measurement");
-            error = true;
+            return; //skip
         }
+
+        q = isNaN(q) ? Infinity : q; //mark unlimited quantities
+        job.sources.push({ length: l, quantity: q });
     });
 
 
@@ -99,31 +89,24 @@ function run(e)
         if(isNaN(l))
         {
             log_error("Cut #" + i + ": invalid length measurement");
-            error = true;
+            return; //skip
         }
-        else
+        
+        if(isNaN(q))
         {
-            if(isNaN(q)) //unlimited quantity
-            {
-                log_error("Cut #" + i + ": invalid quantity");
-                error = true;
-            } 
-            else //given quantity
-            {
-                for(var j = 0; j < q; j++)
-                {
-                    cuts.push({
-                        length: l,
-                        color: c
-                    });
-                }
-            }
-        }
+            log_error("Cut #" + i + ": invalid quantity");
+            return; //skip
+        } 
 
+        job.cuts.push({
+            length: l,
+            quantity: q,
+            color: c
+        });
     });
 
-
-    if(error)
+    //don't continue until all errors are handled
+    if(has_error())
         return;
 
 
@@ -131,13 +114,7 @@ function run(e)
     solver_worker.onmessage = on_solver_message; //subscribe to messages
 
     //start the job
-    solver_worker.postMessage({
-        mode          : mode,
-        kerf          : kerf,
-        sources       : sources,
-        sources_unlim : sources_unlim,
-        segments      : cuts
-    });
+    solver_worker.postMessage(job);
 }
 
 
@@ -251,6 +228,12 @@ function log_error(str)
     $errors.show();
 }
 
+//test for errors in the log
+function has_error()
+{
+    return $errors.html().length > 0;
+}
+
 //generic adder that clones the previous table row
 function add_item($table)
 {
@@ -277,5 +260,8 @@ function reset_all()
     $errors.empty();
 
     if(solver_worker)
+    {
         solver_worker.terminate();
+        solver_worker = null;
+    }
 }
