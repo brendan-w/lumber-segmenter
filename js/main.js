@@ -169,7 +169,7 @@ function display_results(results)
         //loop for contents
         var offset = 0; //pixels used on current cut
 
-        board.cuts.forEach(function(cut, c) {
+        board.cuts.forEach(function(cut) {
             var width = Math.round((cut.length + results.settings.kerf) * scale);
 
             //draw the cut
@@ -182,11 +182,8 @@ function display_results(results)
                          offset + (width / 2), //X
                          (canvas_height / 2)); //Y
 
-            //draw the kerf if it's NOT the last cut
-            if(c != board.cuts.length - 1)
-            {
-                ctx.fillRect(offset + width -1, 0, 1, canvas_height);
-            }
+            //draw the kerf
+            ctx.fillRect(offset + width -1, 0, 1, canvas_height);
 
             //advance the offset
             offset += width;
