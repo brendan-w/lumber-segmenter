@@ -25,6 +25,7 @@ var suboptimal = {
             if(filled_board.cut_indices.length == 0)
                 return null; //total layout failure
 
+            job.sources[filled_board.source_index].quantity--; //deduct
             layout.push(filled_board);
             allocate_cuts(job, filled_board); //decrement the quantities of cuts accordingly
         }

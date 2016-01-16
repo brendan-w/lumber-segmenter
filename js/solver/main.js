@@ -39,7 +39,6 @@ function run(job)
             break;
     }
 
-    console.log("total loss: ", loss_in_layout(layout));
 
     if(layout)
         emit("success", {
