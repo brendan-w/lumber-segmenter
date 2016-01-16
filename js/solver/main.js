@@ -103,6 +103,8 @@ function resolve_to_user_objects(job, layout)
         output.push(output_board);
     });
 
+    output.sort(descending_length);
+
     return output;
 }
 
