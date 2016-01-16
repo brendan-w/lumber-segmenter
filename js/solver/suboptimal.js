@@ -15,8 +15,18 @@ var suboptimal = {
 
         var layout = [];
 
-        while(cuts_left(job) > 0 && sources_left(job) > 0)
+        //these are purely for progress reporting
+        var n_cuts_total = cuts_left(job);
+        var n_cuts_left;
+
+        //while there are cuts and sources left to work with
+        while((n_cuts_left = cuts_left(job)) > 0 && sources_left(job) > 0)
         {
+            //send progress updates based on how many cuts we've made so far
+            var cuts_made = (n_cuts_total - n_cuts_left);
+            emit("progress", cuts_made / n_cuts_total);
+
+            //fill another board
             var filled_board = suboptimal.choose_board(job);
 
             //if we were unable to fill any of the source boards with a cut pattern,
@@ -42,6 +52,9 @@ var suboptimal = {
 
         //loop through our choices of length for the source boards
         job.sources.forEach(function(source, s) {
+
+            if(source.quantity == 0)
+                return; //skip spent sources
 
             //try filling this source length
             var filled_board = optimal.fill_board(job, make_board(job, s));

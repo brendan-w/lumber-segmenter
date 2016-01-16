@@ -126,6 +126,8 @@ function on_solver_message(e)
         display_results(message.data, (3/16));
     else if(message.type == "failure")
         log_error(message.data);
+    else if(message.type == "progress")
+        console.log(message.data);
 }
 
 
