@@ -179,8 +179,7 @@ aside table tbody tr:first-of-type button.delete
 #main
 {
 	height:100%;
-	padding:30px;
-	padding-left:300px;
+	padding:30px 30px 30px 300px;
 	text-align: center;
 }
 
@@ -202,6 +201,7 @@ aside table tbody tr:first-of-type button.delete
 ul#output li
 {
 	padding-top:20px;
+	display:inline-block;
 }
 
 
@@ -215,6 +215,8 @@ ul#output li h1
 	color:white;
 	font-size: 26px;
 	padding-right:20px;
+	width:4em;
+	text-align: right;
 }
 
 
