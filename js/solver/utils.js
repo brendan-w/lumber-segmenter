@@ -73,7 +73,7 @@ function clone_layout(layout)
     return new_layout;
 },
 
-//computes the total space_left for on the boards in a layout
+//computes the total space_left for every board in the layout
 function loss_in_layout(layout)
 {
     var total = 0;
@@ -89,4 +89,43 @@ function loss_in_layout(layout)
     });
 
     return space_left;
+}
+
+
+/*
+    Used to determine whether the loss in this layout is concentrated
+    mostly on one board, or is spread out across all of them
+
+    For instance, a good case:
+
+         |
+         |           |
+         |           |
+    loss |           |
+         |           |
+         |           |
+         |. . . . . .|. . . . average loss
+         |     |     |   |
+         |_|_|_|_|_|_|_|_|_|_
+
+           individual boards
+
+    Or, a bad case:
+
+
+         |
+         |
+         |
+    loss |     |
+         |.|. .|. . . . .|.|. average loss
+         | | | |   | | | | |
+         | | | | | | | | | |
+         | | | | | | | | | |
+         |_|_|_|_|_|_|_|_|_|_
+
+           individual boards
+*/
+function clumping_in_layout(layout)
+{
+    //TODO
 }
