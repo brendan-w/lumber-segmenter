@@ -121,10 +121,10 @@ function run(e)
 function on_solver_message(e)
 {
     var result = e.data;
-    if(result.success)
+    if(result.type == "success")
         //TODO: get actual kerf
         display_results(result.data, (3/16));
-    else
+    else if(result.type == "failure")
         log_error(result.data);
 }
 

@@ -4,9 +4,6 @@
  *  This file acts as a driver for the various solvers.
  *  Since the solvers work on discrete input, unlimited sources are handled here.
  *  
- *  Segments = desired cuts of wood (WANT)
- *  Sources = known quatity stock (HAVE)
- *  Sources_unlim = unlimited quatity stock (HAVE)
  */
 
 
@@ -14,6 +11,11 @@ function descending_length(a, b) { return b.length - a.length; }
 
 function run(job)
 {
+    console.log("Job Started", job);
+
+    //picks discrete quantity values for sources marked as infiniteS
+    //TODO: resolve quantities of Infinity to actual counts
+    // handle_infinity(job);
 
     //Having the solvers allocate the bigger cuts first will cause
     //boards to fill up faster, which rapidly disqualifies choices,
@@ -23,35 +25,13 @@ function run(job)
     job.sources.sort(descending_length);
     job.cuts.sort(descending_length);
 
-
-    //TODO: resolve quantities of Infinity to actual counts
-
-    var layout = null;
-
-    switch(job.settings.mode)
-    {
-        default:
-        case "auto": //Auto
-            //TODO
-            break;
-
-        case "solve":
-            layout = full_solve.run(job);
-            break;
-
-        case "fast_1":
-            //TODO
-            break;
-
-        case "fast_2":
-            //TODO
-            break;
-    }
+    //SOLVE
+    var layout = full_solve.run(job);;
 
     if(layout)
-        return { success:true, data:convert_structure_patch(job, layout) };
+        emit("success", convert_structure_patch(job, layout));
     else
-        return { success:false, data:"failed to compute layout" };
+        emit("failure", "failed to compute layout");
 }
 
 
@@ -301,8 +281,5 @@ var segmenter = {
 
 
 
-onmessage = function(e) {
-    //all messages start a new cut job
-    console.log("Job Started", e.data);
-    postMessage(run(e.data));
-};
+//all messages start a new cut job
+onmessage = function(e) { run(e.data); };

@@ -1,5 +1,15 @@
 
 
+//the format for all messages
+function emit(type, data)
+{
+    postMessage({
+        type: type,
+        data: data,
+    });
+}
+
+
 //returns the number of cuts left to make on a job
 //will return Infinity if one or more sources are unlimited
 function sources_left(job)
