@@ -124,6 +124,14 @@ function loss_in_layout(layout)
          |_|_|_|_|_|_|_|_|_|_
 
            individual boards
+
+    So, I'm defining clumping as the percent of the loss above average:
+
+    loss_above_average_line / total_loss
+
+    This yeilds a normalized value, where:
+        1 = best clumping
+        0 = worst clumping
 */
 function clumping_in_layout(layout)
 {
