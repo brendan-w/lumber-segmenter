@@ -78,7 +78,7 @@ var optimal = {
 
 
     //wrapper function around the recursive board cutter.
-    //Stores and returns the best solution.
+    //Stores and returns the best solution for the given board length.
     fill_board: function(job, board) {
 
         var best_board; //the layout with the least loss
