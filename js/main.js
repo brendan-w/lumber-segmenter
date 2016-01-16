@@ -169,24 +169,30 @@ function display_results(results)
         //loop for contents
         var offset = 0; //pixels used on current cut
 
+        //compute the kerf width in pixels
+        var kerf = results.settings.kerf * scale;
+        kerf = (kerf < 1) ? 1 : kerf; //peg the width of the kerf at 1 pixel
+
         board.cuts.forEach(function(cut) {
-            var width = Math.round((cut.length + results.settings.kerf) * scale);
+
+            var size           = Math.round(cut.length * scale);
+            var size_with_kerf = Math.round((cut.length + results.settings.kerf) * scale);
 
             //draw the cut
             ctx.fillStyle = cut.color;
-            ctx.fillRect(offset, 0, width, canvas_height);
+            ctx.fillRect(offset, 0, size_with_kerf, canvas_height);
 
             //write the cut length
             ctx.fillStyle = "#000";
             ctx.fillText(cut.length,       //text
-                         offset + (width / 2), //X
+                         offset + (size / 2), //X
                          (canvas_height / 2)); //Y
 
-            //draw the kerf
-            ctx.fillRect(offset + width -1, 0, 1, canvas_height);
-
             //advance the offset
-            offset += width;
+            offset += size_with_kerf;
+
+            //draw the kerf
+            ctx.fillRect(offset - kerf, 0, kerf, canvas_height);
         });
     });
 
