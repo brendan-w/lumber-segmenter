@@ -18,17 +18,27 @@ var full_solve = {
         output:
 
         [
-          cut_index : source_index,
-          cut_index : source_index,
-          ...
+            //source, with a list of it's cuts
+            {
+                source_index: x,
+                space_left: x,
+                cut_indices: [ cut_index, ... ]
+            },
+            ...
         ]
-
-        {
-            source_index : [ cut_index ]
-        }
-
-        source indicies are computed by using this
     */
+
+
+    //model used to represent filled (cut) source material (boards)
+    //run() returns a list of these
+    make_output_board: function(job, s) {
+        return {
+            source_index: s,
+            space_left: job.sources[s].length,
+            cut_indices: [],
+        };
+    },
+
 
     //main working variable
     //array mapping cuts of wood onto their parent sources (links[cut_index] = source_index)
@@ -59,24 +69,39 @@ var full_solve = {
 
     //WARNING: recursive
     //tries to make another cut
-    fill_source: function(job, space_left, links) {
-        if(space_left > 0)
+    fill_source: function(job, board) {
+        if((space_left > 0) && (cuts_left(job) > 0))
         {
-            //loop through every length (type) of cut
+            //loop through every length (type) of cut still available
             job.cuts.forEach(function(cut, c) {
-                if(cut.quantity == 0) return; //skip spent cuts
 
-                if((space_left != cut.length) ||
-                   (space_left < cut.length + job.settings.kerf))
-                    return;
+                if(cut.quantity == 0)
+                    return; //skip spent cut sizes
+
+                //if this cut size is too long for the remaining space
+                if(board.space_left < cut.length)
+                    return; //skip
+
+                //if we've made it this far, then there is enough space for our cut size
+
+                //take note of this, so we can un-cut our board
+                var old_space_left = board.space_left;
 
                 //make the cut
-                cut.quantity--;
-                space_left -= 
-                make_cut(job, s, c);
+                cut.quantity--; //deduct from the quantity of this cut size
+                board.cut_indices.push(c);
+                board.space_left -= cut.length + job.settings.kerf;
+                //yes, the above can yeild negative values for a filled board
+                //but, becuase of the gaurd above, we are gauranteed that
+                //(board.space_left >= cut.length)
 
-                this.solve(job);
-                undo_cut(job, s, c);
+                //recurse for the next cut
+                full_solve.fill_source(job, board);
+
+                //undo the cut
+                board.space_left = old_space_left;
+                board.cut_indices.pop()
+                cut.quantity++;
             });
         }
         else
