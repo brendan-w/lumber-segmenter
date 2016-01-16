@@ -243,36 +243,27 @@ ul#output li h1
 }
 
 
-/* ====================================== printer ======================================= */
-
 @media print
 {
-	section
+	aside
 	{
-		border:none !important;
-		background-color: transparent !important;
+		display:none;
 	}
 
-	section:not(.result)
+	#main
 	{
-		display:none !important;
+		padding:0px;
 	}
 
-	section.result
+	ul#output li h1
 	{
-		width:766px; /* ensures that there is enough room to put everything on a single line */
+		font-size: 20px;
+		color:black;
 	}
 
-	section.result h1
+	ul#output li canvas
 	{
-		font-size: 20pt;
-		display:inline;
-		width:auto;
-		padding-right:10px;
-	}
-
-	section.result canvas
-	{
-		display:inline;
+		max-width:580px;
+		height: auto;
 	}
 }

@@ -7,7 +7,11 @@ var $welcome;
 
 var canvas_width = 800; //will get overwritten in resize()
 var canvas_height = 20;
-var canvas_bg = "#555";
+
+//constants
+var canvas_bg = "#888";
+var max_canvas_width = 800;
+
 
 $(function() {
 	$sources = $("#sources");
@@ -46,7 +50,7 @@ function run(e)
 	var kerf          = parse_compound_float($("#kerf").val());
 	var sources       = [];
 	var sources_unlim = [];
-	var cuts       = [];
+	var cuts          = [];
 
 
 	//fill the arrays above
@@ -182,7 +186,8 @@ function display_results(results, kerf)
 function resize()
 {
 	//recalculate the size of output canvas'
-	canvas_width = $output.width() - 80 - 100;
+	canvas_width = $output.width() - 80;
+	canvas_width = (canvas_width > max_canvas_width) ? max_canvas_width : canvas_width;
 }
 
 
