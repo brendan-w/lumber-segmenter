@@ -15,7 +15,7 @@ function run(job)
 
     //picks discrete quantity values for sources marked as infiniteS
     //TODO: resolve quantities of Infinity to actual counts
-    // handle_infinity(job);
+    handle_infinity(job);
 
     //Having the solvers allocate the bigger cuts first will cause
     //boards to fill up faster, which rapidly disqualifies choices,
@@ -35,6 +35,22 @@ function run(job)
         });
     else
         emit("failure", "failed to compute layout");
+}
+
+
+//Resolves infinite quantities to discrete quantities.
+//For each type of infinite source, set the quantity to the total
+//number of cuts. This ensures that there is at least one source
+//board for every cut. Since sources are clumped by size type, it's
+//okay for these source quantities to be very large.
+function handle_infinity(job)
+{
+    var n_cuts = cuts_left(job);
+
+    job.sources.forEach(function(source) {
+        if(source.quantity == Infinity)
+            source.quantity = n_cuts;
+    });
 }
 
 
