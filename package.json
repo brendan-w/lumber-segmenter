@@ -1,0 +1,36 @@
+{
+  "name": "lumber-segmenter",
+  "version": "1.0.0",
+  "description": "Lumber Cut Calculator - A tool for efficiently cutting wood",
+  "main": "index.js",
+  "scripts": {
+    "build": "make --jobs",
+    "clean": "make clean",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brendan-w/lumber_segmenter.git"
+  },
+  "keywords": [
+    "lumber",
+    "calculator",
+    "wood",
+    "cut",
+    "calculate",
+    "layout"
+  ],
+  "author": "Brendan Whitfield",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/brendan-w/lumber_segmenter/issues"
+  },
+  "homepage": "https://github.com/brendan-w/lumber_segmenter#readme",
+  "dependencies": {
+    "clean-css": "^3.4.9",
+    "less": "^2.5.3",
+    "mustache": "^2.2.1",
+    "reset.css": "^2.0.2",
+    "uglifyjs": "^2.4.10"
+  }
+}

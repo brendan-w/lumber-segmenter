@@ -1,0 +1,106 @@
+<!doctype html>
+
+<!--
+	Written and Designed by Brendan Whitfield
+	because I got sick of doing it by hand...
+-->
+
+<html>
+	<head>
+		<!-- META -->
+		<meta charset='utf-8'/>
+		<meta name="author" content="Brendan Whitfield">
+		<meta name="description" content="{{ description }}">
+		<meta name="keywords" content="lumber, calculator, wood, cut, calculate, layout">
+		
+		<title>Lumber Segmenter</title>
+
+		<!-- CSS -->
+		<style>{{> style.css}}</style>
+
+		<!-- JS -->
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+		<script>{{> solver.js}}</script>
+		<script>{{> ui.js}}</script>
+
+	</head>
+	<body onunload=''>
+		<aside>
+			<button id="run">Run</button>
+
+			<section>
+				<h2>Settings</h2>
+
+				<table id="settings">
+					<tbody>
+						<tr>
+							<td>
+								<select id="mode">
+									<option value="auto" selected="selected">Auto</option>
+									<option value="solve">Optimal (Slow)</option>
+									<option value="fast_1">Suboptimal 1</option>
+									<option value="fast_2">Suboptimal 2</option>
+								</select>
+							</td>
+							<th>Mode</th>
+						</tr>
+						<tr>
+							<td><input id="kerf" type="input" value="3/16"/></td> <!-- kerf -->
+							<th>Saw&nbsp;Kerf</th>
+						</tr>
+					</tbody>
+				</table>			
+
+				<h2>Source Material<button id="add-source" class="add">+</button></h2>
+
+				<table id="sources">
+					<thead>
+						<tr>
+							<th>Length</th><th>Quantity</th><th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input class="length" type="input" required/></td>
+							<td><input class="quantity" type="number" min="0" placeholder="unlimited"/></td>
+							<td><button class="delete">X</button></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<h2>Cuts<button id="add-cut" class="add">+</button></h2>
+
+				<table id="cuts">
+					<thead>
+						<tr>
+							<th></th><th>Length</th><th>Quantity</th><th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><div class="color"></div></td>
+							<td><input class="length" type="input" required/></td>
+							<td><input class="quantity" type="number" min="0" value="1" required/></td>
+							<td><button class="delete">X</button></td>
+						</tr>
+					</tbody>
+				</table>
+
+			</section>
+		</aside>
+
+		<div id="main">
+			<ul id="output"></ul>
+			<section id="errors"></section>
+			<section id="welcome">
+				<h1>Lumber Segmenter</h1>
+				<p>
+					Calculates cuts of lumber that minimize loss. Enter the length and quantity for your source lumber, and your desired cuts, and a cut pattern will be generated.
+				</p>
+				<p>
+					If a source quantity is left blank, it will be treated as an unlimited resource. Fractional length measurements such as "34 1/2" are welcome. Units are irrelevant, as long as they're consistent.
+				</p>
+			</section>
+		</div>
+	</body>
+</html>
