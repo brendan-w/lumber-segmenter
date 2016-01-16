@@ -70,7 +70,7 @@ button#run
 
 button#run:hover
 {
-	background-color: #249CFF;
+	background-color: #34ACFF;
 }
 
 
@@ -141,6 +141,7 @@ aside button.add
 	float:right;
 	width:50px;
 	height:100%;
+	font-size: 14px;
 }
 
 aside button.add:hover

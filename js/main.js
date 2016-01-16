@@ -212,7 +212,7 @@ function add_result()
 function log_error(str)
 {
 	console.log(str);
-	$errors.html($errors.text() + "<br>" + str);
+	$errors.html($errors.html() + "<br>" + str);
 	$errors.show();
 }
 
@@ -238,5 +238,4 @@ function reset_display()
 	$output.hide();
 	$output.empty();
 	$errors.empty();
-
 }
