@@ -16,8 +16,8 @@ function run(job)
 {
 
     //most solvers want these in descending size order
-    // job.sources.sort(descending_length);
-    // job.cuts.sort(descending_length);
+    job.sources.sort(descending_length);
+    job.cuts.sort(descending_length);
 
 
     //TODO: resolve quantities of Infinity to actual counts
@@ -43,8 +43,6 @@ function run(job)
             //TODO
             break;
     }
-
-    console.log(layout);
 
     if(layout)
         return { success:true, data:convert_structure_patch(job, layout) };
@@ -301,6 +299,6 @@ var segmenter = {
 
 onmessage = function(e) {
     //all messages start a new cut job
-    console.log(e.data);
+    console.log("Job Started", e.data);
     postMessage(run(e.data));
 };

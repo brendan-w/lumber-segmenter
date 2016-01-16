@@ -22,11 +22,13 @@ var full_solve = {
 
         full_solve.choose_source(job, [], function(layout) {
             
-            // console.log("layout: ");
-            // console.log(layout);
+            var loss = loss_in_layout(layout);
 
-            if(!best_layout || (loss_in_layout(layout) < best_loss))
+            if((!best_layout) || (loss < best_loss))
+            {
                 best_layout = layout;
+                best_loss   = loss;
+            }
 
         });
 
@@ -36,20 +38,22 @@ var full_solve = {
     //WARNING: recursive
     choose_source: function(job, layout, reveal_candidate) {
 
-        // console.log("choose_source:");
-        // console.log(layout);
-        // console.log(job);
+        // console.log("choose_source", layout);
 
         if(cuts_left(job) > 0)
         {
             //loop through every length (type) of source material
             job.sources.forEach(function(source, s) {
 
+                // console.log("selected source: " + s);
+
                 if(source.quantity == 0)
                     return; //skip spent sources
 
                 //compute a cut layout for this source
                 var filled_board = full_solve.fill_board(job, make_board(job, s));
+
+                // console.log("filled_board", filled_board);
 
                 //if this board couldn't be cut... at all...
                 //this can happen when all of the cut sizes are larger than the remaining boards
@@ -91,8 +95,7 @@ var full_solve = {
 
         full_solve.cut_board(job, board, function(filled_board) {
 
-            // console.log("board: ");
-            // console.log(filled_board);
+            // console.log("fill_board", filled_board);
 
             //see if this solution is any better than the last
             if((!best_board) || (filled_board.space_left < best_board.space_left))
