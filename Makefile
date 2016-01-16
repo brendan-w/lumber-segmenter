@@ -14,7 +14,7 @@ JS_UI = js/utils.js \
 JS_SOLVER = js/solver/full_solve.js \
             js/solver/fast_solve_1.js \
             js/solver/fast_solve_2.js \
-            js/solver/segmenter.js
+            js/solver/main.js
             
 
 # flags --------------------------------
