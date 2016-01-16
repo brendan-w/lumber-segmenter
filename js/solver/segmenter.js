@@ -12,206 +12,219 @@
 
 var segmenter = {
 
-	run:function(mode, kerf, sources, sources_unlim, segments)
-	{
-		var compiledSources = [];
+    run:function(mode, kerf, sources, sources_unlim, segments)
+    {
+        var compiledSources = [];
 
-		//add the limited sources
-		for(var i = 0; i < sources.length; i++)
-			compiledSources.push(this.makeSource(sources[i].length));
+        //add the limited sources
+        for(var i = 0; i < sources.length; i++)
+            compiledSources.push(this.makeSource(sources[i].length));
 
-		//add one of each unlimited
-		for(var i = 0; i < sources_unlim.length; i++)
-			compiledSources.push(this.makeSource(sources_unlim[i].length));
-
-
-		//pre-flight checks
-		var check = this.test(compiledSources, segments);
-
-		if(check.tooBig)
-		{
-			//error
-			return this.makeResult(false, "One of your desired cuts is too big for any of your stock");
-		}
-		else if(sources_unlim.length === 0)
-		{
-			if(check.tooMuch)
-			{
-				return this.makeResult(false, "You don't have enough wood for that :(");
-			}
-		}
-		else
-		{
-			//add enough to cover the rest AND the expected losses
-			for(var i = 0; i < sources_unlim.length; i++)
-			{
-				var length = sources_unlim[i].length;
-				var num = Math.ceil(check.maxLoss / length);
-
-				if(check.tooMuch)
-				{
-					num += Math.ceil(check.howMuchMore / length);
-				}
-
-				for(var q = 0; q < num; q++)
-				{
-					compiledSources.push(this.makeSource(length));
-				}
-			}
-		}
+        //add one of each unlimited
+        for(var i = 0; i < sources_unlim.length; i++)
+            compiledSources.push(this.makeSource(sources_unlim[i].length));
 
 
-		//sort everything large to small
-		compiledSources.sort(function(a,b){return b.length-a.length});
-		segments.sort(function(a,b){return b.length-a.length});
+        //pre-flight checks
+        var check = this.test(compiledSources, segments);
+
+        if(check.tooBig)
+        {
+            //error
+            return this.makeResult(false, "One of your desired cuts is too big for any of your stock");
+        }
+        else if(sources_unlim.length === 0)
+        {
+            if(check.tooMuch)
+            {
+                return this.makeResult(false, "You don't have enough wood for that :(");
+            }
+        }
+        else
+        {
+            //add enough to cover the rest AND the expected losses
+            for(var i = 0; i < sources_unlim.length; i++)
+            {
+                var length = sources_unlim[i].length;
+                var num = Math.ceil(check.maxLoss / length);
+
+                if(check.tooMuch)
+                {
+                    num += Math.ceil(check.howMuchMore / length);
+                }
+
+                for(var q = 0; q < num; q++)
+                {
+                    compiledSources.push(this.makeSource(length));
+                }
+            }
+        }
 
 
-		//run the solver for the mode
-		var used = undefined;
-		switch(mode)
-		{
-			default:
-			case "auto": //Auto
-
-				if((sources.length + sources_unlim.length) * segments.length < 35) //rough estimate of how bad this is going to be //80
-				{
-					used = solve.run(compiledSources, segments, kerf); //Optimal
-				}
-				else
-				{
-					//Sub-Optimal 1
-					var fast1 = fast_solve_1.run(compiledSources, segments, kerf);
-					var loss1 = fast_solve_1.totalLoss;
-
-					//Sub-Optimal 2
-					var fast2 = fast_solve_2.run(compiledSources, segments, kerf);
-					var loss2 = fast_solve_2.totalLoss;
-
-					if(loss1 <= loss2)
-					{
-						used = fast1;
-					}
-					else
-					{
-						used = fast2;
-					}
-				}
-				break;
-
-			case "solve":
-				used = solve.run(compiledSources, segments, kerf); //Optimal
-				break;
-
-			case "fast_1":
-				used = fast_solve_1.run(compiledSources, segments, kerf); //Sub-Optimal 1
-				break;
-
-			case "fast_2":
-				used = fast_solve_2.run(compiledSources, segments, kerf); //Sub-Optimal 2
-				break;
-		}
-		
-		if((used === undefined) || (used.length === 0))
-		{
-			//error
-			return this.makeResult(false, "Can't do it :(");
-		}
-		else
-		{
-			//return the formatted results
-			var results = this.compileResults(compiledSources, segments, used);
-			return this.makeResult(true, results);
-		}
-	},
+        //sort everything large to small
+        compiledSources.sort(function(a,b){return b.length-a.length});
+        segments.sort(function(a,b){return b.length-a.length});
 
 
-	compileResults:function(compiledSources, segments, used)
-	{
-		var results = new Array(); //array of sources (with an array for the composing segments)
+        //run the solver for the mode
+        var used = undefined;
+        switch(mode)
+        {
+            default:
+            case "auto": //Auto
 
-		//init the results array
-		for(var i = 0; i < compiledSources.length; i++)
-		{
-			results[i] = {length:compiledSources[i].length, segments:new Array(), segLength:0};
-		}
+                if((sources.length + sources_unlim.length) * segments.length < 35) //rough estimate of how bad this is going to be //80
+                {
+                    used = solve.run(compiledSources, segments, kerf); //Optimal
+                }
+                else
+                {
+                    //Sub-Optimal 1
+                    var fast1 = fast_solve_1.run(compiledSources, segments, kerf);
+                    var loss1 = fast_solve_1.totalLoss;
 
-		//attach segments to their respective sources based on used[]
-		for(var i = 0; i < used.length; i++)
-		{
-			var result = results[used[i]];
-			result.segments.push(segments[i]);
-			result.segLength += segments[i].length;
-		}
+                    //Sub-Optimal 2
+                    var fast2 = fast_solve_2.run(compiledSources, segments, kerf);
+                    var loss2 = fast_solve_2.totalLoss;
 
-		//ditch sources that weren't used
-		for(var i = 0; i < results.length; i++)
-		{
-			if(results[i].segments.length == 0)
-			{
-				results.splice(i, 1);
-				i--;
-			}
-		}
+                    if(loss1 <= loss2)
+                    {
+                        used = fast1;
+                    }
+                    else
+                    {
+                        used = fast2;
+                    }
+                }
+                break;
 
-		//sort by the total length of used wood
-		results.sort(function(a,b){return b.segLength-a.segLength});
+            case "solve":
+                used = solve.run(compiledSources, segments, kerf); //Optimal
+                break;
 
-		return results;
-	},
+            case "fast_1":
+                used = fast_solve_1.run(compiledSources, segments, kerf); //Sub-Optimal 1
+                break;
+
+            case "fast_2":
+                used = fast_solve_2.run(compiledSources, segments, kerf); //Sub-Optimal 2
+                break;
+        }
+        
+        if((used === undefined) || (used.length === 0))
+        {
+            //error
+            return this.makeResult(false, "Can't do it :(");
+        }
+        else
+        {
+            //return the formatted results
+            var results = this.compileResults(compiledSources, segments, used);
+            return this.makeResult(true, results);
+        }
+    },
 
 
-	test:function(compiledSources, segments)
-	{
-		var largestSource = 0;
-		var largestSegment = 0;
-		var averageSegment = 0;
-		var totalSource = 0;
-		var totalSegment = 0;
+    compileResults:function(compiledSources, segments, used)
+    {
+        var results = new Array(); //array of sources (with an array for the composing segments)
 
-		for(var i = 0; i < compiledSources.length; i++)
-		{
-			var l = compiledSources[i].length;
-			totalSource += l;
-			if(l > largestSource)
-			{
-				largestSource = l;
-			}
-		}
+        //init the results array
+        for(var i = 0; i < compiledSources.length; i++)
+        {
+            results[i] = {length:compiledSources[i].length, segments:new Array(), segLength:0};
+        }
 
-		for(var i = 0; i < segments.length; i++)
-		{
-			var l = segments[i].length;
-			totalSegment += l;
+        //attach segments to their respective sources based on used[]
+        for(var i = 0; i < used.length; i++)
+        {
+            var result = results[used[i]];
+            result.segments.push(segments[i]);
+            result.segLength += segments[i].length;
+        }
 
-			if(l > largestSegment)
-			{
-				largestSegment = l;
-			}
-		}
+        //ditch sources that weren't used
+        for(var i = 0; i < results.length; i++)
+        {
+            if(results[i].segments.length == 0)
+            {
+                results.splice(i, 1);
+                i--;
+            }
+        }
 
-		averageSegment = totalSegment / segments.length;
+        //sort by the total length of used wood
+        results.sort(function(a,b){return b.segLength-a.segLength});
 
-		return {tooBig:(largestSegment > largestSource),
-				tooMuch:(totalSegment > totalSource),
-				howMuchMore:(totalSegment - totalSource),
-				maxLoss:(largestSource - averageSegment) * segments.length};
-	},
+        return results;
+    },
 
-	//the working object of the solvers
-	makeSource:function(l)
-	{
-		return {
-			length: l,
-			numSegs: 0,
-			segLength:0
-		};
-	},
 
-	makeResult:function(_success, _data)
-	{
-		return {
-			success: _success,
-			data:_data
-		};
-	}
+    test:function(compiledSources, segments)
+    {
+        var largestSource = 0;
+        var largestSegment = 0;
+        var averageSegment = 0;
+        var totalSource = 0;
+        var totalSegment = 0;
+
+        for(var i = 0; i < compiledSources.length; i++)
+        {
+            var l = compiledSources[i].length;
+            totalSource += l;
+            if(l > largestSource)
+            {
+                largestSource = l;
+            }
+        }
+
+        for(var i = 0; i < segments.length; i++)
+        {
+            var l = segments[i].length;
+            totalSegment += l;
+
+            if(l > largestSegment)
+            {
+                largestSegment = l;
+            }
+        }
+
+        averageSegment = totalSegment / segments.length;
+
+        return {tooBig:(largestSegment > largestSource),
+                tooMuch:(totalSegment > totalSource),
+                howMuchMore:(totalSegment - totalSource),
+                maxLoss:(largestSource - averageSegment) * segments.length};
+    },
+
+    //the working object of the solvers
+    makeSource:function(l)
+    {
+        return {
+            length: l,
+            numSegs: 0,
+            segLength:0
+        };
+    },
+
+    makeResult:function(_success, _data)
+    {
+        return {
+            success: _success,
+            data:_data
+        };
+    }
+};
+
+
+
+onmessage = function(e) {
+    var m = e.data;
+    console.log(m);
+    //all messages start a new cut job
+    postMessage(segmenter.run(m.mode,
+                              m.kerf,
+                              m.sources,
+                              m.sources_unlim,
+                              m.segments));
 };

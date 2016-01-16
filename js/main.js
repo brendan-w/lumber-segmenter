@@ -1,4 +1,6 @@
 
+var solver_worker;
+
 var $sources;
 var $cuts;
 var $output;
@@ -42,7 +44,7 @@ $(function() {
 
 function run(e)
 {
-	reset_display();
+	reset_all(); //kills the old worker
 
 	var error = false;
 
@@ -115,10 +117,27 @@ function run(e)
 	if(error)
 		return;
 
-	var result = segmenter.run(mode, kerf, sources, sources_unlim, cuts); //the magic call
 
+	solver_worker = new Worker("solver.js");
+	solver_worker.onmessage = on_solver_message; //subscribe to messages
+
+	//start the job
+	solver_worker.postMessage({
+		mode          : mode,
+		kerf          : kerf,
+		sources       : sources,
+		sources_unlim : sources_unlim,
+		segments      : cuts
+	});
+}
+
+
+function on_solver_message(e)
+{
+	var result = e.data;
 	if(result.success)
-		display_results(result.data, kerf);
+		//TODO: get actual kerf
+		display_results(result.data, (3/16));
 	else
 		log_error(result.data);
 }
@@ -238,10 +257,14 @@ function re_color()
 	});
 }
 
-function reset_display()
+//resets the display, and kills the worker (if running)
+function reset_all()
 {
 	$welcome.hide();
 	$output.hide();
 	$output.empty();
 	$errors.empty();
+
+	if(solver_worker)
+		solver_worker.terminate();
 }

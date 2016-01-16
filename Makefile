@@ -20,14 +20,14 @@ JS_SOLVER = js/solver/full_solve.js \
 # flags --------------------------------
 
 LESS_FLAGS = --strict-math=on --strict-units=on
-UGLIFY_FLAGS = --compress --mangle --screw-ie8
+# UGLIFY_FLAGS = --compress --mangle --screw-ie8
 
 # targets ------------------------------
 
 .PHONY: all
-all: index.html
+all: index.html solver.js
 
-index.html: index.mustache style.css ui.js solver.js
+index.html: index.mustache style.css ui.js
 	mustache $(foreach f, $^, -p $(f) ) package.json index.mustache > $@
 
 ui.js: $(JS_UI)
