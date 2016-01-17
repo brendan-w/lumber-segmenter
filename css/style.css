@@ -286,9 +286,12 @@ ul#output li h1
 
 @media print
 {
-	aside
+	aside,
+	#welcome,
+	#print,
+	#progress
 	{
-		display:none;
+		display:none !important;
 	}
 
 	#main
