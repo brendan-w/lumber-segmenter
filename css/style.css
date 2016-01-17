@@ -7,13 +7,13 @@ html
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-	height:100%;
+    height:100%;
 }
 
 body
 {
-	min-height:100%;
-	position: relative;
+    min-height:100%;
+    position: relative;
 }
 
 *, *:before, *:after {
@@ -25,50 +25,50 @@ body
 
 body
 {
-	/* default behavior */
-	background: #111;
-	color:#888;
-	font-family: "Arial", sans-serif;
-	font-size:10pt;
+    /* default behavior */
+    background: #111;
+    color:#888;
+    font-family: "Arial", sans-serif;
+    font-size:10pt;
 }
 
 h1
 {
-	color:white;
-	font-size: 14pt;
-	font-weight: bold;
-	text-transform: uppercase;
+    color:white;
+    font-size: 14pt;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 button,
 input,
 select
 {
-	border:none;
-	background: #111;
-	color:white;
-	width:100%;
-	height:25px;
-	font-weight: inherit;
-	font-size: inherit;
-	font-family: inherit;
+    border:none;
+    background: #111;
+    color:white;
+    width:100%;
+    height:25px;
+    font-weight: inherit;
+    font-size: inherit;
+    font-family: inherit;
 }
 
 button
 {
-	font-weight: bold;
-	cursor: pointer;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .center
 {
-	/* vertical centering */
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	-webkit-transform: translateY(-50%);
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
+    /* vertical centering */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
 
 
@@ -79,14 +79,14 @@ button
 
 button#run
 {
-	width:100%;
-	height:50px;
-	background-color: #2B87FF;
+    width:100%;
+    height:50px;
+    background-color: #2B87FF;
 }
 
 button#run:hover
 {
-	background-color: #34ACFF;
+    background-color: #34ACFF;
 }
 
 
@@ -96,39 +96,39 @@ button#run:hover
 
 aside
 {
-	background: #222;
-	position: absolute;
-	top:0px;
-	left:0px;
-	width:300px;
-	min-height: 100%;
-	text-align: left;
+    background: #222;
+    position: absolute;
+    top:0px;
+    left:0px;
+    width:300px;
+    min-height: 100%;
+    text-align: left;
 }
 
 aside > section
 {
-	padding:40px 20px;
+    padding:40px 20px;
 }
 
 aside h2
 {
-	margin-top:45px;
-	margin-bottom:15px;
-	color:white;
-	font-weight: bold;
-	text-transform: uppercase;
+    margin-top:45px;
+    margin-bottom:15px;
+    color:white;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
 aside h2:first-of-type
 {
-	margin-top: 0px;
+    margin-top: 0px;
 }
 
 
 aside table td,
 aside table th
 {
-	padding:3px 1px;
+    padding:3px 1px;
 }
 
 aside table tr th:first-of-type,
@@ -138,48 +138,48 @@ aside table tr td:last-of-type { padding-right:0px; }
 
 aside table#settings th
 {
-	padding-left:10px;
+    padding-left:10px;
 }
 
 aside table td > *
 {
-	display:block;
+    display:block;
 }
 
 aside table input,
 aside table select
 {
-	padding:3px;
+    padding:3px;
 }
 
 aside button.add
 {
-	float:right;
-	width:50px;
-	height:100%;
-	font-size: 14px;
+    float:right;
+    width:50px;
+    height:100%;
+    font-size: 14px;
 }
 
 aside button.add:hover
 {
-	color:#2F2;
+    color:#2F2;
 }
 
 aside table .color
 {
-	width:25px;
-	height:25px;
+    width:25px;
+    height:25px;
 }
 
 aside table button.delete
 {
-	width:25px;
-	height:25px;
+    width:25px;
+    height:25px;
 }
 
 aside table button.delete:hover
 {
-	color:#F30;
+    color:#F30;
 }
 
 
@@ -189,9 +189,9 @@ aside table button.delete:hover
 
 #main
 {
-	min-height:100%;
-	padding:30px 30px 30px 300px;
-	text-align: center;
+    min-height:100%;
+    padding:30px 30px 30px 300px;
+    text-align: center;
 }
 
 
@@ -201,7 +201,7 @@ aside table button.delete:hover
 
 #errors
 {
-	color:rgb(255, 30, 30);
+    color:rgb(255, 30, 30);
 }
 
 
@@ -211,23 +211,23 @@ aside table button.delete:hover
 
 ul#output li
 {
-	padding-top:20px;
-	display:inline-block;
+    padding-top:20px;
+    display:inline-block;
 }
 
 
 ul#output li *
 {
-	display:inline-block;
+    display:inline-block;
 }
 
 ul#output li h1
 {
-	color:white;
-	font-size: 26px;
-	padding-right:20px;
-	width:4em;
-	text-align: right;
+    color:white;
+    font-size: 26px;
+    padding-right:20px;
+    width:4em;
+    text-align: right;
 }
 
 
@@ -237,15 +237,15 @@ ul#output li h1
 
 #progress
 {
-	width:400px;
-	height:20px;
-	background-color: #333;
+    width:400px;
+    height:20px;
+    background-color: #333;
 }
 
 #progress .bar
 {
-	height:100%;
-	background-color: white;
+    height:100%;
+    background-color: white;
 }
 
 
@@ -255,21 +255,21 @@ ul#output li h1
 
 #print
 {
-	margin-top:50px;
+    margin-top:50px;
 }
 
 #print button
 {
-	width:200px;
-	height:50px;
-	background: #333;
+    width:200px;
+    height:50px;
+    background: #333;
 }
 
 #print button:hover
 {
-	width:200px;
-	height:50px;
-	background: #444;
+    width:200px;
+    height:50px;
+    background: #444;
 }
 
 
@@ -279,40 +279,40 @@ ul#output li h1
 
 #welcome
 {
-	text-align: left;
-	width:300px;
+    text-align: left;
+    width:300px;
 }
 
 #welcome > *
 {
-	margin-bottom: 1em;
+    margin-bottom: 1em;
 }
 
 
 @media print
 {
-	aside,
-	#welcome,
-	#print,
-	#progress
-	{
-		display:none !important;
-	}
+    aside,
+    #welcome,
+    #print,
+    #progress
+    {
+        display:none !important;
+    }
 
-	#main
-	{
-		padding:0px;
-	}
+    #main
+    {
+        padding:0px;
+    }
 
-	ul#output li h1
-	{
-		font-size: 20px;
-		color:black;
-	}
+    ul#output li h1
+    {
+        font-size: 20px;
+        color:black;
+    }
 
-	ul#output li canvas
-	{
-		max-width:580px;
-		height: auto;
-	}
+    ul#output li canvas
+    {
+        max-width:580px;
+        height: auto;
+    }
 }
