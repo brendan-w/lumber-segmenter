@@ -42,7 +42,12 @@ $(function() {
         update_delete();
     });
 
+    //click or press [Enter] to run the solver
     $("#run").click(run);
+    $(window).keypress(function(e) {
+        if(e.keyCode == 13)
+            run();
+    });
 
     $print.find("button").click(function(e) {
         window.print();
