@@ -77,10 +77,7 @@ function run(e)
         var q = parseInt($(row).find(".quantity").val());
 
         if(isNaN(l))
-        {
             log_error("Source #" + i + ": invalid length measurement");
-            return; //skip
-        }
 
         q = isNaN(q) ? Infinity : q; //mark unlimited quantities
         job.sources.push({ length: l, quantity: q });
@@ -93,16 +90,10 @@ function run(e)
         var c = $(row).find(".color").css("background-color");
 
         if(isNaN(l))
-        {
             log_error("Cut #" + i + ": invalid length measurement");
-            return; //skip
-        }
-        
+
         if(isNaN(q))
-        {
             log_error("Cut #" + i + ": invalid quantity");
-            return; //skip
-        } 
 
         job.cuts.push({
             length: l,
@@ -159,7 +150,7 @@ function display_results(results)
         var $r = add_result();
 
         //calculate the relative width of the piece
-        var source_pix_length = Math.round(board.length * scale);
+        var source_length_px = Math.round(board.length * scale);
 
         //set the length text
         $r.find("h1").text(Math.round(board.length * 100) / 100);
@@ -169,7 +160,7 @@ function display_results(results)
 
         //draw the grey background
         ctx.fillStyle = canvas_bg;
-        ctx.fillRect(0, 0, source_pix_length, canvas_height);
+        ctx.fillRect(0, 0, source_length_px, canvas_height);
 
         //set the font for this canvas
         ctx.font = "normal 11pt Arial, sans-serif";
@@ -194,8 +185,8 @@ function display_results(results)
 
             //write the cut length
             ctx.fillStyle = "#000";
-            ctx.fillText(cut.length,       //text
-                         offset + (size / 2), //X
+            ctx.fillText(cut.length,           //text
+                         offset + (size / 2),  //X
                          (canvas_height / 2)); //Y
 
             //advance the offset
@@ -251,7 +242,6 @@ function add_result()
 //generic error string handler
 function log_error(str)
 {
-    console.log(str);
     $errors.html($errors.html() + "<br>" + str);
     $errors.show();
 }
@@ -278,6 +268,8 @@ function update_colors()
     });
 }
 
+//only allow users to delete things when there is more than one
+//of them in the list.
 function update_delete()
 {
     //sources
