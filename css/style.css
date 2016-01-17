@@ -58,14 +58,12 @@ button
 .center
 {
 	/* vertical centering */
-	position: relative;
+	position: absolute;
 	top: 50%;
+	left: 50%;
 	-webkit-transform: translateY(-50%);
 	-ms-transform: translateY(-50%);
 	transform: translateY(-50%);
-
-	margin-left:auto;
-	margin-right:auto;
 }
 
 
@@ -191,7 +189,7 @@ aside table tbody tr:first-of-type button.delete
 
 #main
 {
-	height:100%;
+	min-height:100%;
 	padding:30px 30px 30px 300px;
 	text-align: center;
 }
