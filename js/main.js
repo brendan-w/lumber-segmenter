@@ -171,7 +171,7 @@ function display_results(results)
 
         //compute the kerf width in pixels
         var kerf = results.settings.kerf * scale;
-        kerf = (kerf < 1) ? 1 : kerf; //peg the width of the kerf at 1 pixel
+        kerf = Math.max(Math.round(kerf), 1); //peg the width of the kerf at 1 pixel
 
         board.cuts.forEach(function(cut) {
 
