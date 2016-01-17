@@ -28,15 +28,18 @@ $(function() {
 
     $("#add-source").click(function(e) {
         add_item($sources);
+        update_delete();
     });
 
     $("#add-cut").click(function(e) {
         add_item($cuts);
+        update_delete();
     });
 
     $(".delete").on("click", function(e) {
         $(this).closest("tr").remove();
-        re_color(); //update the color codes
+        update_colors(); //update the color codes
+        update_delete();
     });
 
     $("#run").click(run);
@@ -45,7 +48,8 @@ $(function() {
         window.print();
     });
 
-    re_color(); //color the initial list item
+    update_colors(); //color the initial list item
+    update_delete(); //updates whether the delete buttons are shown
     resize();
     reset_all();
 
@@ -263,15 +267,26 @@ function add_item($table)
 {
     var $last = $table.find("tbody").children().last();
     $table.append($last.clone(true));
-    re_color(); //update the color codes
+    update_colors(); //update the color codes
 }
 
 //recolors the list of cuts
-function re_color()
+function update_colors()
 {
     $cuts.find("tbody tr").each(function(i, row) {
         $(row).find(".color").css(color_for_index(i));
     });
+}
+
+function update_delete()
+{
+    //sources
+    var show_sources = $sources.find("tbody tr").length > 1;
+    $sources.find("tbody tr .delete").toggle(show_sources);
+
+    //cuts
+    var show_cuts = $cuts.find("tbody tr").length > 1;
+    $cuts.find("tbody tr .delete").toggle(show_cuts);
 }
 
 //resets the display, and kills the worker (if running)

@@ -177,11 +177,6 @@ aside table button.delete:hover
 	color:#F30;
 }
 
-aside table tbody tr:first-of-type button.delete
-{
-	display: none; /* hide the first delete button */
-}
-
 
 /*
  * Main display area
