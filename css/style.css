@@ -1,14 +1,19 @@
 
 /********************************* General Things ****************************************/
 
-html,
-body { height:100%; }
-
-html {
+html
+{
     /* set everything to border-box */
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+	height:100%;
+}
+
+body
+{
+	min-height:100%;
+	position: relative;
 }
 
 *, *:before, *:after {
