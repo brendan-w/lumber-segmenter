@@ -127,19 +127,25 @@ function on_solver_message(e)
 {
     var message = e.data;
 
-    if(message.type == "success")
-        display_results(message.data, (3/16));
-    else if(message.type == "failure")
-        log_error(message.data);
-    else if(message.type == "progress")
-        set_progress(message.data);
+    switch(message.type)
+    {
+        case "success":
+            $progress.hide();
+            display_results(message.data);
+            break;
+        case "failure":
+            $progress.hide();
+            log_error(message.data);
+            break;
+        case "progress":
+            set_progress(message.data);
+            break;
+    }
 }
 
 
 function display_results(results)
 {
-    $progress.hide();
-
     //compute the scale factor mapping measurements to pixels
     var scale = canvas_width / largest_board(results);
 

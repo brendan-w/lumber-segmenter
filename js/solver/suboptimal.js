@@ -40,12 +40,16 @@ var suboptimal = {
             allocate_cuts(job, filled_board); //decrement the quantities of cuts accordingly
         }
 
+        //for cases where the sources ran out before the cuts
+        if(cuts_left(job) > 0)
+            layout = null;
+
         return layout;
     },
 
 
     //loops through source types, and selects the board that, when cut,
-    //generated the least loss. Returns teh choosen board
+    //generated the least loss. Returns the choosen board
     choose_board:function(job) {
 
         var best_board;

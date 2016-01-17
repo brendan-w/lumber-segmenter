@@ -46,7 +46,7 @@ function run(job)
             layout : resolve_to_user_objects(job, layout),
         });
     else
-        emit("failure", "failed to compute layout");
+        emit("failure", "Failed to compute layout. It might be impossible.");
 }
 
 
