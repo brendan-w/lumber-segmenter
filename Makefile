@@ -20,7 +20,7 @@ JS_SOLVER = js/solver/utils.js \
 # flags --------------------------------
 
 LESS_FLAGS = --strict-math=on --strict-units=on
-# UGLIFY_FLAGS = --compress --mangle --screw-ie8
+UGLIFY_FLAGS = --compress --mangle --screw-ie8
 
 # targets ------------------------------
 
