@@ -11,8 +11,6 @@ function descending_length(a, b) { return b.length - a.length; }
 
 function run(job)
 {
-    console.log("Job Started", job);
-
     //picks discrete quantity values for sources marked as infiniteS
     //TODO: resolve quantities of Infinity to actual counts
     handle_infinity(job);

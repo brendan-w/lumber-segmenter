@@ -118,8 +118,8 @@ function run(e)
     //start the job
     solver_worker.postMessage(job);
 
-    set_progress(0);
-    $progress.show();
+    // set_progress(0);
+    // $progress.show();
 }
 
 
@@ -138,7 +138,7 @@ function on_solver_message(e)
             log_error(message.data);
             break;
         case "progress":
-            set_progress(message.data);
+            // set_progress(message.data);
             break;
     }
 }
